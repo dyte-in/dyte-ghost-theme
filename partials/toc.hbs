@@ -1,0 +1,53 @@
+{{!--
+  This template renders a Table of Contents in post pages.
+--}}
+
+<div
+  class="f-toc {{^if feature_image}}no-image{{/if}}"
+  :class="{ 'opened': isTocOpen() }"
+  x-data="toc()"
+  x-init="initToc"
+>
+  <div class="f-toc__container">
+    <div class="f-toc__header" :class="{ 'opened': isTocOpen() }">
+      <span class="f-toc__title">{{t "Table of contents"}}</span>
+      <button
+        class="f-toc__toggle no-appearance content-centered"
+        :class="{ 'opened': isTocOpen() }"
+        aria-label="{{t "Toggle table of contents"}}"
+        @click.stop="toggleToc"
+      >
+        <span class="icon-chevron-down" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div
+      class="f-toc__list-container"
+      x-show.transition="showToc"
+      x-cloak
+      @click.away="clickAway"
+    >
+      <div class="f-toc__list_wrapper">
+        <div class="toc js-toc"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  window.toc = () => {
+    return {
+      showToc: false,
+      toggleToc() { this.showToc = !this.showToc },
+      isTocOpen() { return this.showToc === true },
+      initToc() {
+        document.addEventListener('toc-link-clicked', () => {
+          this.toggleToc()
+        })
+      },
+      clickAway() {
+        if (this.isTocOpen()) {
+          this.toggleToc()
+        }
+      }
+    }
+  }
+</script>

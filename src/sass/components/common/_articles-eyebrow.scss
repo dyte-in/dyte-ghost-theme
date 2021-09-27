@@ -1,0 +1,33 @@
+.f-articles-eyebrow {
+  display: block;
+  color: var(--foreground-color);
+  text-transform: uppercase;
+  letter-spacing: 0.0125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  width: 100%;
+
+  @include respond-to('medium') {
+    margin-left: -0.625rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @include respond-to('large') {
+    margin-left: 0;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.rtl {
+  .f-articles-eyebrow {
+    @include respond-to('medium') {
+      margin-left: 0;
+      margin-right: -0.625rem;
+    }
+
+    @include respond-to('large') {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

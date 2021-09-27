@@ -1,0 +1,77 @@
+{{!--
+  This template is used for the index page.
+  It can be used also as the home page or the default page.
+--}}
+
+{{!-- This block preloads specific assets for the home page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/home.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the home page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/home.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <main
+    class="f-standard-container {{#is "home"}}in-home{{/is}} has-newsletter"
+    role="main"
+  >
+    {{#is "home"}}
+      {{> hero}}
+    {{/is}}
+    <div class="f-standard-wrapper">
+      {{#is "paged"}}
+        <h1 class="f-title">
+          {{t "Articles"}}
+        </h1>
+      {{/is}}
+      <div class="f-posts-container">
+        {{#foreach posts}}
+          {{#if @first}}
+            {{#is "paged"}}
+              {{#if featured}}
+                {{> featured-post}}
+              {{else}}
+                {{> post-card}}
+              {{/if}}
+            {{else}}
+              {{> latest-post}}
+            {{/is}}
+          {{else}}
+            {{#if featured}}
+              {{> featured-post}}
+            {{else}}
+              {{> post-card}}
+            {{/if}}
+          {{/if}}
+        {{else}}
+          {{>
+            empty-content
+            extra_class="in-posts-loop"
+            title=(t "No articles were found")
+            description=(t "Apparently there are no articles at the moment, please check again later.")
+          }}
+        {{/foreach}}
+      </div>
+      {{!-- Links to Previous/Next posts --}}
+      {{pagination}}
+    </div>
+  </main>
+  <section class="f-newsletter" aria-label="{{t "Newsletter form"}}">
+    <div class="f-newsletter__wrapper">
+      {{> "newsletter-form"}}
+    </div>
+  </section>
+</div>

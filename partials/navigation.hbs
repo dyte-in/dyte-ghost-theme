@@ -1,0 +1,24 @@
+{{!--
+  This template renders the navigation menus.
+--}}
+
+{{#if isSecondary}}
+  {{#foreach navigation}}
+    <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}">
+      <a href="{{url absolute="true"}}">
+        <span>{{label}}</span>
+      </a>
+    </li>
+  {{/foreach}}
+{{else}}
+  {{#foreach navigation}}
+    <li>
+      <a
+        href="{{url absolute="true"}}"
+        class="nav-{{slug}}{{#if current}} nav-current{{/if}}"
+      >
+        <span>{{label}}</span>
+      </a>
+    </li>
+  {{/foreach}}
+{{/if}}

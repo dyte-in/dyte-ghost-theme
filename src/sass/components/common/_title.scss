@@ -1,0 +1,18 @@
+.f-title {
+  color: var(--foreground-color);
+  line-height: 1.3;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 1.5625rem;
+  max-width: 31.25rem;
+
+  @include respond-to('medium') {
+    line-height: 1.2;
+    font-size: 3.75rem;
+    margin-bottom: 2.1875rem;
+  }
+
+  &.no-margin {
+    margin-bottom: 0 !important;
+  }
+}

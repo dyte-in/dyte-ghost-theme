@@ -1,0 +1,45 @@
+.f-author-meta {
+  padding-top: 2.1875rem;
+}
+
+.f-author-meta__location {
+  display: block;
+  color: var(--secondary-text-color);
+  font-style: italic;
+  font-size: 0.8125rem;
+
+  @include respond-to('medium') {
+    font-size: 0.875rem;
+  }
+}
+
+.f-author-meta__list {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 1.5625rem 0 0 0;
+  margin: 0;
+
+  li {
+    margin-right: 1.25rem;
+
+    a {
+      span {
+        font-size: 1.125rem;
+
+        &.website {
+          color: var(--alt-text-color);
+        }
+      }
+    }
+  }
+}
+
+.rtl {
+  .f-author-meta__list {
+    li {
+      margin-right: 0;
+      margin-left: 1.25rem;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+.f-blob-shape {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 17.0625rem;
+  height: 18.5rem;
+  overflow: hidden;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+
+  @include respond-to('medium') {
+    width: 23.375rem;
+    height: 25.3125rem;
+  }
+
+  @include respond-to('large') {
+    width: 29.625rem;
+    height: 32.125rem;
+  }
+
+  &.alt-version {
+    right: auto;
+    left: 0;
+    width: 17.8125rem;
+    height: 18.5rem;
+
+    @include respond-to('medium') {
+      width: 33.1875rem;
+      height: 24.25rem;
+    }
+
+    @include respond-to('large') {
+      width: 33.1875rem;
+      height: 34.4375rem;
+    }
+
+    svg {
+      top: -3.125rem;
+      right: auto;
+      left: -4.9375rem;
+
+      @include respond-to('medium') {
+        left: -10.9375rem;
+      }
+    }
+  }
+
+  svg {
+    display: block;
+    position: absolute;
+    top: -2.125rem;
+    right: -4.6875rem;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    line-height: 0;
+
+    @include respond-to('medium') {
+      top: -2.75rem;
+      right: -6.312rem;
+    }
+
+    @include respond-to('extra-large') {
+      top: -3.75rem;
+      right: -8.312rem;
+    }
+
+    .shape-fill {
+      fill: var(--blob-shape-color);
+    }
+  }
+}
+
+.rtl {
+  .f-blob-shape {
+    right: auto;
+    left: 0;
+
+    &.alt-version {
+      right: 0;
+      left: auto;
+
+      svg {
+        left: auto;
+        right: -4.9375rem;
+
+        @include respond-to('medium') {
+          right: -10.6875rem;
+        }
+      }
+    }
+
+    svg {
+      right: auto;
+      left: -4.6875rem;
+      @include transform(rotateY(180deg));
+
+      @include respond-to('medium') {
+        right: auto;
+        left: -10.312rem;
+      }
+
+      @include respond-to('extra-large') {
+        right: auto;
+        left: -8.312rem;
+      }
+    }
+  }
+}

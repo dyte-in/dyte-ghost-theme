@@ -1,0 +1,215 @@
+.f-latest-post {
+  width: 100%;
+  margin-bottom: 1.875rem;
+  position: relative;
+
+  @include respond-to('medium') {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0.625rem 3.125rem;
+  }
+
+  @include respond-to('large') {
+    margin: 0 1.25rem 4.6875rem;
+  }
+
+  &:hover {
+    .f-latest-post__image img {
+      @include respond-to('medium') {
+        @include transform(rotate(2deg) scale(1.2));
+      }
+    }
+  }
+
+  &.no-image {
+    @include respond-to('medium') {
+      padding: 2.5rem;
+      border-radius: 0.625rem;
+      border: 0.0625rem solid var(--border-color);
+      margin-bottom: 1.5625rem;
+      background-color: var(--background-color);
+    }
+
+    @include respond-to('large') {
+      padding: 0;
+      margin-bottom: 3.125rem;
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+        @include transform(scale(1));
+      }
+    }
+
+    &:before {
+      @include respond-to('medium') {
+        content: '';
+        position: absolute;
+        top: 1.25rem;
+        left: 0.625rem;
+        right: 0.625rem;
+        bottom: 0;
+        opacity: 0;
+        z-index: -1;
+        @include bs(0 1.875rem 3.75rem 0 rgba(0, 0, 0, var(--post-card-shadow-opacity)));
+        @include transform(scale(0));
+        @include transition(all ease 0.35s);
+      }
+    }
+
+    .f-latest-post__image-container {
+      display: none;
+    }
+
+    .f-latest-post__main-container {
+      @include respond-to('large') {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 75%;
+        margin: 0 auto;
+      }
+    }
+
+    .f-latest-post__label {
+      display: block;
+    }
+
+    .f-post-card__header {
+      @include respond-to('large') {
+        flex-direction: column;
+      }
+    }
+
+    .f-post-card__tag {
+      @include respond-to('large') {
+        margin-bottom: 1.5625rem;
+      }
+    }
+
+    .f-latest-post__excerpt {
+      @include respond-to('large') {
+        text-align: center;
+        max-width: 75%;
+      }
+    }
+  }
+}
+
+.f-latest-post__image-container {
+  margin-bottom: 1.25rem;
+
+  @include respond-to('medium') {
+    flex-shrink: 0;
+    width: calc(50% - 0.625rem);
+    height: 100%;
+    margin-bottom: 0;
+  }
+
+  @include respond-to('large') {
+    width: calc(50% - 1.25rem);
+  }
+}
+
+.f-latest-post__main-container {
+  @include respond-to('medium') {
+    flex: 1;
+    padding: 1.25rem;
+  }
+
+  @include respond-to('large') {
+    padding: 2.5rem;
+  }
+}
+
+.f-latest-post__label {
+  display: block;
+  color: var(--foreground-color);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.0125rem;
+
+  &.for-mobile {
+    margin-bottom: 1.25rem;
+
+    @include respond-to('medium') {
+      display: none;
+    }
+  }
+
+  &.for-desktop {
+    display: none;
+    margin-bottom: 1.5625rem;
+
+    @include respond-to('medium') {
+      display: block;
+    }
+  }
+}
+
+.f-latest-post__image {
+  display: block;
+  height: 15.625rem;
+  border-radius: 1.875rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--border-color);
+  @include transform(translateZ(0));
+
+  @include respond-to('medium') {
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+
+    @include respond-to('medium') {
+      min-height: 20rem;
+      @include transition(all 0.4s ease);
+    }
+
+    @include respond-to('large') {
+      min-height: 28.75rem;
+    }
+  }
+}
+
+.f-latest-post__title {
+  display: block;
+  margin-bottom: 1.25rem;
+
+  @include respond-to('large') {
+    margin-bottom: 1.875rem;
+  }
+
+  h2 {
+    color: var(--foreground-color);
+    line-height: 1.3;
+    font-size: 1.625rem;
+    font-weight: 600;
+    margin: 0;
+
+    @include respond-to('large') {
+      line-height: 1.2;
+      font-size: 2.25rem;
+    }
+  }
+}
+
+.f-latest-post__excerpt {
+  color: var(--secondary-text-color);
+  margin-bottom: 1.875rem;
+  @include strip(3, 0.9375, 1.7);
+
+  @include respond-to('large') {
+    margin-bottom: 2.1875rem;
+    @include strip(3, 1, 1.7);
+  }
+}

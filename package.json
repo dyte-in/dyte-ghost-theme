@@ -1,0 +1,62 @@
+{
+  "author": {
+    "email": "this.eduardo@gmail.com",
+    "name": "Eduardo Gómez",
+    "url": "https://eduardogomez.io"
+  },
+  "config": {
+    "posts_per_page": 9,
+    "image_sizes": {
+      "xxs": {
+        "width": 50
+      },
+      "xs": {
+        "width": 150
+      },
+      "s": {
+        "width": 350
+      },
+      "m": {
+        "width": 750
+      },
+      "l": {
+        "width": 1050
+      },
+      "xl": {
+        "width": 1750
+      }
+    }
+  },
+  "demo": "https://firma.eduardogomez.io",
+  "description": "Modern and beautiful multipurpose Ghost theme for business and startups.",
+  "engines": {
+    "ghost": ">=4.0.0",
+    "ghost-api": "v4"
+  },
+  "gpm": {
+    "type": "theme",
+    "categories": [
+      "Beautiful",
+      "Clean",
+      "Simple",
+      "Startup",
+      "Minimal",
+      "Responsive",
+      "Business",
+      "Multi-Purpose",
+      "Company"
+    ]
+  },
+  "keywords": [
+    "ghost",
+    "theme",
+    "ghost-theme"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "name": "firma",
+  "screenshots": {
+    "desktop": "assets/screenshot-desktop.jpg",
+    "mobile": "assets/screenshot-mobile.jpg"
+  },
+  "version": "1.5.2"
+}

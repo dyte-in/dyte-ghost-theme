@@ -1,0 +1,89 @@
+.f-search {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  right: -0.9375rem;
+  bottom: calc(100% + 0.625rem);
+  width: calc(100vw - 3.125rem);
+  max-width: 24.875rem;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
+  border: 0.0625rem solid var(--border-color);
+  background-color: var(--background-color);
+  transform-origin: 50% 3.125rem;
+  will-change: transform, opacity, visibility;
+  @include transform(rotateX(15deg));
+  @include transition(all ease 0.25s);
+
+  @include respond-to('medium') {
+    width: 24.375rem;
+    max-width: 24.375rem;
+    right: 0;
+    top: calc(100% + 0.625rem);
+    bottom: auto;
+    transform-origin: 50% -3.125rem;
+    @include transform(rotateX(-15deg));
+  }
+
+  &.opened {
+    visibility: visible;
+    opacity: 1;
+    @include transform(rotateX(0));
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0.9375rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0.625rem;
+    z-index: -1;
+    @include bs(0 1.375rem 1.25rem rgba(0, 0, 0, var(--submenu-shadow-opacity)));
+  }
+}
+
+.f-search__form {
+  width: 100%;
+  margin-bottom: 0.625rem;
+}
+
+.f-search__input {
+  color: var(--alt-text-color);
+  font-size: 1rem;
+  font-family: var(--font-family);
+  width: 100%;
+  padding: 0.8125rem 0.9375rem !important;
+  border-radius: 1.5625rem;
+  border: 0.0625rem solid var(--border-color) !important;
+  background-color: var(--background-color) !important;
+  @include transition(all ease 0.1s);
+
+  &:focus {
+    outline: 0;
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+}
+
+.f-search__hint {
+  color: var(--text-color);
+  font-size: 0.75rem;
+  white-space: nowrap;
+
+  @include respond-to('medium') {
+    font-size: 0.8125rem;
+  }
+}
+
+.rtl {
+  .f-search {
+    right: auto;
+    left: -0.9375rem;
+
+    @include respond-to('medium') {
+      right: auto;
+      left: 0;
+    }
+  }
+}

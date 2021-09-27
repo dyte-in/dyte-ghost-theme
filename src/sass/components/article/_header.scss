@@ -1,0 +1,132 @@
+.f-article-header {
+  position: relative;
+  margin-bottom: 3.125rem;
+
+  @include respond-to('medium') {
+    max-width: 53.75rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4.6875rem;
+  }
+
+  &.no-image {
+    padding-bottom: 3.125rem;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 6.25rem;
+      height: 0.1875rem;
+      background-color: var(--foreground-color);
+    }
+  }
+}
+
+.f-article-header__tag-container {
+  margin-bottom: 1.875rem;
+
+  @include respond-to('medium') {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.f-article-header__title {
+  color: var(--foreground-color);
+  line-height: 1.3;
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin: 0 0 1.5625rem;
+
+  @include respond-to('medium') {
+    line-height: 1.2;
+    font-size: 3.75rem;
+    margin-bottom: 2.1875rem;
+  }
+}
+
+.f-article-header__excerpt {
+  color: var(--secondary-text-color);
+  line-height: 1.7;
+  font-size: 1rem;
+  max-width: 33.75rem;
+
+  @include respond-to('medium') {
+    font-size: 1.125rem;
+    max-width: 40rem;
+  }
+
+  &.in-post {
+    margin-bottom: 1.5625rem;
+  }
+}
+
+.f-article-header__time {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  line-height: 1.4;
+  font-size: 0.875rem;
+  margin-bottom: 2.1875rem;
+
+  @include respond-to('medium') {
+    margin-bottom: 3.125rem;
+  }
+}
+
+.f-article-header__author {
+  display: flex;
+  align-items: center;
+  color: var(--alt-text-color);
+
+  span {
+    display: inline-block;
+    flex: 1;
+    margin-left: 0.9375rem;
+    @include strip(1, 0.875, 1.3);
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+}
+
+.f-article-header__authors {
+  color: var(--alt-text-color);
+  line-height: 1.8;
+  font-size: 0.875rem;
+
+  @include respond-to('medium') {
+    font-size: 0.9375rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    @include transition(all ease 0.1s);
+
+    &:hover {
+      filter: brightness(180%) saturate(180%);
+    }
+  }
+}
+
+.rtl {
+  .f-article-header {
+    &.no-image {
+      &:after {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  .f-article-header__author {
+    span {
+      margin-left: 0;
+      margin-right: 0.9375rem;
+    }
+  }
+}

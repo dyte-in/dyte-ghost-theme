@@ -1,0 +1,79 @@
+html {
+  height: -webkit-fill-available;
+
+  @include respond-to('medium') {
+    height: auto;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  font-size: var(--font-base);
+  font-family: var(--font-family);
+  padding-top: var(--top-bar-height);
+  overflow-x: hidden;
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include respond-to('medium') {
+    min-height: 100vh;
+  }
+}
+
+[x-cloak] {
+  display: none;
+}
+
+.f-main-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+p {
+  line-height: 1.5;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  position: relative;
+}
+
+img.lazy {
+  opacity: 0;
+}
+
+img:not(.initial) {
+  @include transition(opacity 1s);
+}
+
+img.initial,
+img.loaded,
+img.error {
+  opacity: 1 !important;
+}
+
+img:not([src]) {
+  visibility: hidden;
+}
+
+.lightense-target {
+  @include transition(transform var(--lightense-duration) var(--lightense-timing-func) !important);
+}
+
+.lightense-backdrop {
+  background-color: var(--background-color) !important;
+}

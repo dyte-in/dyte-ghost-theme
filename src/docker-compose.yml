@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ghost:
+    image: ghost:4.3.3
+    container_name: ghost
+    volumes:
+      - ./..:/var/lib/ghost/content/themes/firma
+      - ./ghost.db:/var/lib/ghost/content/data/ghost.db
+    environment:
+      - NODE_ENV=development
+      - WEBHOOK_SECRET=
+    ports:
+      - 2368:2368

@@ -1,0 +1,98 @@
+{{!--
+  This template is used for the signin page.
+--}}
+
+{{!-- This block preloads specific assets for the signin page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/auth.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the signin page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/auth.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< ../default}}
+
+<div class="f-main-container">
+  {{> header}}
+  {{#if @member}}
+    {{!-- Logged in: Redirect home --}}
+    <script>window.location = '{{@site.url}}'</script>
+  {{else}}
+    <div class="f-auth-container">
+      {{#page}}
+        <main
+          class="f-auth-container__wrapper {{^if feature_image}}no-image{{/if}}"
+          role="main"
+        >
+            {{#if feature_image}}
+              <div class="f-auth-image">
+                <img
+                  data-src="{{img_url feature_image size="m"}}"
+                  alt=""
+                  class="lazy"
+                  width="300"
+                  height="500"
+                >
+              </div>
+            {{/if}}
+            <form
+              data-members-form="signin"
+              id="signin-form"
+              class="f-auth-form {{^if feature_image}}no-image{{/if}}"
+            >
+              <h1 class="f-auth-form__title">{{t "Welcome back!"}}</h1>
+              <p class="f-auth-form__subtitle">
+                {{t "Sign into your account again for full access."}}
+              </p>
+              <div
+                class="f-auth-form__fieldset {{^if feature_image}}no-image{{/if}}"
+              >
+                <label for="signin-input" class="sr-only">
+                  {{t "Your email address"}}
+                </label>
+                <input
+                  data-members-email
+                  id="signin-input"
+                  class="f-auth-form__input no-appearance"
+                  type="email"
+                  required
+                  placeholder="{{t "Your email address"}}"
+                />
+                <button
+                  id="signin-button"
+                  class="f-button primary medium in-auth-form"
+                  type="submit"
+                >
+                  {{t "Send magic link"}}
+                  <span class="icon-chevron-right" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="f-auth-form__success">
+                {{t "👋 Great! Check your inbox and click the link to complete signin."}}
+              </p>
+              <p class="f-auth-form__invalid f-error-message bottom-space">
+                {{t "Please enter a valid email address"}}
+              </p>
+              <p class="f-auth-form__error f-error-message bottom-space">
+                {{t "Oops! There was an error sending the email, please try later"}}
+              </p>
+              <p class="f-auth-form__secondary-action">
+                {{t "Don't have an account yet?"}}
+                <a href="{{@site.url}}/signup">{{t "Sign up"}}</a>
+              </p>
+            </form>
+        </main>
+      {{/page}}
+      {{> blob-shape alt_version="true"}}
+    </div>
+  {{/if}}
+</div>

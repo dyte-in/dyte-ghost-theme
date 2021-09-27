@@ -1,0 +1,34 @@
+{{!--
+  This template renders a previous or next article in the post page.
+--}}
+
+<article
+  class="f-nav-article {{extra_class}} post-access-{{visibility}} {{^if feature_image}}no-image{{/if}}"
+>
+  <a href="{{url}}" class="f-nav-article__link">
+    <span class="f-access-tag border in-nav-article {{visibility}}">
+      {{t visibility}}
+    </span>
+    {{#if feature_image}}
+      <div class="f-nav-article__image">
+        <img
+          data-src="{{img_url feature_image size="s"}}"
+          alt=""
+          class="lazy"
+          width="175"
+          height="240"
+        >
+      </div>
+    {{/if}}
+    <div class="f-nav-article__content">
+      <div>
+        <span
+          class="f-nav-article__label smaller"
+          >
+          {{label}}
+        </span>
+        <h2 class="f-nav-article__title">{{title}}</h2>
+      </div>
+    </div>
+  </a>
+</article>

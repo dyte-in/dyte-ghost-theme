@@ -1,0 +1,8 @@
+.f-header-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 0.125rem;
+  background-color: var(--accent-color);
+  @include transition(width linear 0.1s);
+}

@@ -1,0 +1,393 @@
+.f-toc {
+  position: sticky;
+  top: var(--top-bar-height);
+  margin: -4.6875rem calc(-1 * var(--mobile-space)) 0;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    margin: 0;
+  }
+
+  @include respond-to('large') {
+    max-width: var(--small-wrapper-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include respond-to('largest') {
+    align-self: start;
+    order: 2;
+    top: calc(var(--top-bar-height) + 2.5rem);
+    width: 13.125rem;
+    max-height: calc(100vh - var(--top-bar-height) - 2.5rem);
+    margin: 0;
+    @include transform(translateX(2.5rem));
+  }
+
+  &.opened {
+    &:before {
+      display: none;
+    }
+  }
+
+  &.no-image {
+    margin-top: 0;
+  }
+}
+
+.f-toc__container {
+  position: relative;
+  background-color: var(--background-color);
+  z-index: 2;
+
+  @include respond-to('largest') {
+    background-color: transparent;
+  }
+}
+
+.f-toc__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  height: 3.75rem;
+  padding: 0 var(--mobile-space);
+  border-bottom: 0.0625rem solid var(--border-color);
+  background-color: var(--background-color);
+  z-index: 2;
+
+  @include respond-to('medium') {
+    border-bottom: 0;
+  }
+
+  @include respond-to('large') {
+    padding: 0;
+  }
+
+  @include respond-to('largest') {
+    position: relative;
+    height: auto;
+    margin-bottom: 1.5625rem;
+    background-color: transparent;
+  }
+
+  &:before {
+    @include respond-to('medium') {
+      content: '';
+      position: absolute;
+      left: 50%;
+      right: 50%;
+      width: 100vw;
+      height: 100%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background-color: var(--background-color);
+      border-bottom: 0.0625rem solid var(--border-color);
+      z-index: -1;
+    }
+
+    @include respond-to('largest') {
+      top: -0.625rem;
+      right: -0.625rem;
+      bottom: -0.625rem;
+      left: -0.625rem;
+      width: auto;
+      height: auto;
+      margin-left: 0;
+      margin-right: 0;
+      border-radius: 0.3125rem;
+      border-bottom: 0;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  }
+}
+
+.f-toc__title {
+  color: var(--alt-text-color);
+  font-weight: 500;
+  @include strip(1, 1, 1.3);
+
+  @include respond-to('largest') {
+    color: var(--accent-color);
+  }
+}
+
+.f-toc__toggle {
+  width: 2.1875rem;
+  height: 2.1875rem;
+  color: var(--alt-text-color);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 0.0625rem solid var(--border-color);
+  @include transition(all ease 0.1s);
+
+  @include respond-to('medium') {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @include respond-to('largest') {
+    display: none;
+  }
+
+  &:focus {
+    outline: 0;
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+
+  &.opened {
+    span {
+      @include transform(rotate(180deg));
+    }
+  }
+
+  span {
+    color: inherit;
+    font-size: 1.125rem;
+    transform-origin: center center;
+    @include transition(transform ease 0.2s);
+
+    @include respond-to('medium') {
+      font-size: 1rem;
+    }
+  }
+}
+
+.f-toc__list-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--background-color);
+  z-index: 1;
+
+  @include respond-to('medium') {
+    margin-top: -0.3125rem;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid var(--border-color);
+  }
+
+  @include respond-to('largest') {
+    display: block !important;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-top: 0;
+    border: 0;
+    background-color: transparent;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0.625rem;
+    left: 0.625rem;
+    right: 0.625rem;
+    bottom: 0;
+    z-index: -1;
+    @include bs(0 0.625rem 2.5rem rgba(0, 0, 0, var(--mobile-menu-shadow-opacity)));
+
+    @include respond-to('medium') {
+      border-radius: 0.625rem;
+      box-shadow: 0 1.375rem 1.25rem rgba(0, 0, 0, var(--submenu-shadow-opacity)), 0 0 0 transparent;
+    }
+
+    @include respond-to('largest') {
+      display: block;
+      position: absolute;
+      top: -0.625rem;
+      right: -0.625rem;
+      bottom: -0.625rem;
+      left: -0.625rem;
+      border-radius: 0.3125rem;
+      opacity: 0.2;
+      background-color: var(--background-color);
+      pointer-events: none;
+      backdrop-filter: blur(0.625rem);  
+      -webkit-backdrop-filter: blur(0.625rem);
+      @include bs(0 0 0 rgba(0, 0, 0, 0));
+    }
+  }
+
+  .toc-list {
+    padding: 0;
+
+    li {
+      line-height: 1.6;
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+
+      @include respond-to('medium') {
+        margin-bottom: 0;
+      }
+
+      @include respond-to('largest') {
+        padding-left: 0.625rem;
+        margin-bottom: 0;
+      }
+
+      ul,
+      ol {
+        padding: 0.625rem 0 0 0.625rem;
+
+        @include respond-to('medium') {
+          padding: 0;
+        }
+
+        li {
+          font-size: 0.8125rem;
+          margin-bottom: 0.9375rem;
+
+          @include respond-to('medium') {
+            margin-bottom: 0;
+          }
+
+          @include respond-to('largest') {
+            padding-left: 0;
+          }
+
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+
+          .toc-link {
+            @include respond-to('medium') {
+              padding: 0.3125rem 0 0.3125rem 2.5rem;
+            }
+
+            @include respond-to('largest') {
+              padding-left: 0.625rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .toc-link {
+    color: var(--alt-text-color);
+
+    @include respond-to('medium') {
+      display: block;
+      padding: 0.625rem 1.25rem;
+      @include transition(background-color ease 0.1s);
+
+      @include respond-to('largest') {
+        display: inline-block;
+        padding: 0.3125rem 0;
+      }
+
+      &:hover {
+        background-color: var(--mask-color);
+
+        @include respond-to('largest') {
+          background-color: transparent;
+        }
+      }
+    }
+
+    &.is-active-link {
+      font-weight: 500;
+
+      &:before {
+        background-color: var(--accent-color);
+      }
+    }
+
+    &:before {
+      display: none;
+
+      @include respond-to('largest') {
+        display: inline-block;
+        left: 0;
+        width: 0.125rem;
+        margin-top: -0.3125rem;
+        background-color: var(--border-color);
+      }
+    }
+  }
+}
+
+.f-toc__list_wrapper {
+  position: relative;
+  padding: 1.875rem var(--mobile-space) 0.625rem;
+  max-height: calc(100vh - 8.75rem);
+  background-color: var(--background-color);
+  overflow-y: auto;
+  z-index: 1;
+
+  @include respond-to('medium') {
+    padding: 0.625rem 0;
+    border-radius: 0.625rem;
+    max-height: 26.25rem;
+  }
+
+  @include respond-to('largest') {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    max-height: 100%;
+    background-color: transparent;
+  }
+}
+
+.rtl {
+  .f-toc {
+    @include respond-to('largest') {
+      @include transform(translateX(-2.5rem));
+    }
+  }
+
+  .f-toc__list-container {
+    .toc-list {
+      li {
+        @include respond-to('largest') {
+          padding-left: 0;
+          padding-right: 0.625rem;
+        }
+
+        ul,
+        ol {
+          padding-left: 0;
+          padding-right: 1.25rem;
+
+          @include respond-to('medium') {
+            padding: 0;
+          }
+
+          @include respond-to('largest') {
+            padding: 0.625rem 0.625rem 0 0;
+          }
+
+          li {
+            @include respond-to('largest') {
+              padding-right: 0;
+            }
+
+            .toc-link {
+              @include respond-to('medium') {
+                padding: 0.3125rem 2.5rem 0.3125rem 0;
+              }
+
+              @include respond-to('largest') {
+                padding-left: 0;
+                padding-right: 0.625rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .toc-link {
+      &:before {
+        @include respond-to('largest') {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+  }
+}

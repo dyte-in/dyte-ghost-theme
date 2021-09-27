@@ -1,0 +1,32 @@
+.f-404-content {
+  max-width: 18.75rem;
+
+  @include respond-to('medium') {
+    max-width: 28.125rem;
+  }
+}
+
+.f-404-content__title {
+  color: var(--foreground-color);
+  line-height: 1;
+  font-size: 7rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+
+  @include respond-to('medium') {
+    font-size: 9.25rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.f-404-content__subtitle {
+  color: var(--secondary-text-color);
+  line-height: 1.7;
+  font-size: 0.9375rem;
+  margin-bottom: 1.875rem;
+
+  @include respond-to('medium') {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+}

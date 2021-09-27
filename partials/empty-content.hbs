@@ -1,0 +1,19 @@
+{{!--
+  This template renders a message when content is not available.
+--}}
+
+<div class="f-empty-content {{extra_class}}">
+  <img
+    src="{{asset "images/empty.svg"}}"
+    class="f-empty-content__image"
+    alt=""
+    width="80"
+    height="75"
+  >
+  <h2 class="f-empty-content__title">
+    {{title}}
+  </h2>
+  <p class="f-empty-content__description">
+    {{description}}
+  </p>
+</div>

@@ -1,0 +1,80 @@
+{{!--
+  This template renders the header for each article.
+--}}
+
+<header
+  class="f-article-header {{^if feature_image}}no-image{{/if}}"
+>
+  {{#is "post"}}
+    {{#if primary_tag}}
+      <div class="f-article-header__tag-container">
+        <a href="{{primary_tag.url}}" class="f-article-tag">
+          {{primary_tag.name}}
+          <span class="icon-chevron-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    {{/if}}
+  {{/is}}
+  <h1 class="f-article-header__title js-article-title">{{title}}</h1>
+  {{#if custom_excerpt}}
+    <p class="f-article-header__excerpt {{#is "post"}}in-post{{/is}}">
+    {{custom_excerpt}}
+  </p>
+  {{/if}}
+  {{#is "post"}}
+    <p class="f-article-header__time">
+      <span>{{date published_at timeago="true"}}</span>
+      {{#if reading_time}}
+        <span>&nbsp; &bull; &nbsp;</span>
+        <span>
+          {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}
+        </span>
+      {{/if}}
+    </p>
+    {{#if authors}}
+      {{#has author="count:>1"}}
+        <p class="f-article-header__authors">
+          {{t "By"}} 
+          {{#foreach authors}}
+            <a href="{{url}}">{{name}}</a><span class="{{#if @last}}hide{{/if}}">,</span>
+          {{/foreach}}
+        </p>
+      {{else}}
+        <div class="f-article-header__author">
+          {{> avatar 
+            avatar_url=primary_author.url
+            avatar_class="in-article-header"
+            avatar_image=(img_url primary_author.profile_image size="xxs")
+            avatar_alt=(t "{label}'s profile'" label=primary_author.name)
+            has_popup="false"
+          }}
+          <span>
+            {{t "By"}} 
+            <a href="{{primary_author.url}}">{{primary_author.name}}</a>
+          </span>
+        </div>
+      {{/has}}
+    {{/if}}
+  {{/is}}
+</header>
+{{#if feature_image}}
+  <div class="f-article__image">
+    <img
+      data-src="{{img_url feature_image size='l'}}"
+      data-srcset="
+        {{img_url feature_image size='m'}} 750w,
+        {{img_url feature_image size='l'}} 1050w,
+        {{img_url feature_image size='xl'}} 1750w
+      "
+      sizes="
+        (max-width: 48rem) 46.875rem,
+        (max-width: 64rem) 65.625rem,
+        109.375rem
+      "
+      alt=""
+      class="js-article-image"
+      width="1200"
+      height="800"
+    >
+  </div>
+{{/if}}

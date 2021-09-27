@@ -1,0 +1,11 @@
+{{!--
+  This header template is shared across all the pages.
+--}}
+
+<header class="f-header js-header">
+  {{> mobile-menu}}
+  {{> desktop-menu}}
+  {{#is "post"}}
+    <div class="f-header-progress js-header-progress"></div>
+  {{/is}}
+</header>

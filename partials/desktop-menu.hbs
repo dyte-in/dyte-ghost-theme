@@ -1,0 +1,222 @@
+{{!--
+  This template renders the desktop menu.
+--}}
+
+<div
+  class="f-desktop-top-bar"
+  x-data="desktopMenu()"
+  x-ref="desktop_menu"
+  x-init="initScrollFeature('{{#is "post"}}is-post{{/is}}')"
+>
+  <div class="f-desktop-top-bar__wrapper">
+    {{> logo logo_class="in-desktop-top-bar"}}
+    <div
+      class="f-desktop-top-bar__middle-wrapper"
+      :class="{ 'title-displayed': isPostTitleVisible() }"
+    >
+      <div
+        class="f-desktop-top-bar__middle top-bar-menu"
+        :class="{ 'hidden': isPostTitleVisible() }"
+      >
+        {{#if @site.navigation}}
+          <span class="f-desktop-top-bar__mask left" aria-hidden="true"></span>
+          <div class="f-desktop-top-bar__nav-wrapper">
+            <nav
+              role="navigation"
+              class="f-desktop-navigation"
+              aria-label="{{t "Main links"}}"
+            >
+              <ul class="f-desktop-navigation__list main">
+                {{navigation}}
+              </ul>
+            </nav>
+          </div>
+          <span class="f-desktop-top-bar__mask right" aria-hidden="true"></span>
+        {{/if}}
+        {{#if @site.secondary_navigation}}
+          <nav
+            class="f-desktop-navigation__list more"
+            role="navigation"
+            aria-label="{{t "Secondary links"}}"
+          >
+            <div class="submenu">
+              <a href="#" aria-haspopup="true" onclick="return false;">
+                <span>{{t "More"}}</span>
+              </a>
+              <ul class="f-submenu secondary">
+                {{navigation type="secondary"}}
+              </ul>
+            </div>
+          </nav>
+        {{/if}}
+      </div>
+      {{#is "post"}}
+        <div
+          class="f-desktop-top-bar__middle article-title"
+          :class="{ 'visible': isPostTitleVisible() }"
+        >
+          {{#post}}
+            <div class="f-desktop-top-bar__article-title-wrapper">
+              <p class="f-desktop-top-bar__article-title" aria-hidden="true">
+                {{title}}
+              </p>
+            </div>
+          {{/post}}
+        </div>
+      {{/is}}
+    </div>
+    <div class="f-desktop-top-bar__actions">
+      {{#has any="@site.twitter, @site.facebook"}}
+        <nav
+          role="navigation"
+          aria-label="{{t "Social links"}}"
+          class="horizontal-centered-items"
+        >
+          {{#if @site.facebook}}
+            <a
+              href="{{facebook_url @site.facebook}}"
+              class="f-icon-button content-centered simple social in-desktop-top-bar"
+              aria-label="Facebook"
+            >
+              <span class="icon-facebook" aria-hidden="true"></span>
+            </a>
+          {{/if}}
+          {{#if @site.twitter}}
+            <a
+              href="{{twitter_url @site.twitter}}"
+              class="f-icon-button content-centered simple social in-desktop-top-bar"
+              aria-label="Twitter"
+            >
+              <span class="icon-twitter" aria-hidden="true"></span>
+            </a>
+          {{/if}}
+        </nav>
+      {{/has}}
+      {{#if @member}}
+        <nav
+          class="f-desktop-top-bar__account"
+          aria-label="{{t "Account menu"}}"
+        >
+          {{> avatar 
+            avatar_url=(concat @site.url "/account")
+            avatar_class="in-desktop-top-bar"
+            avatar_image=(img_url @member.avatar_image size="xxs")
+            avatar_alt=@member.name
+            has_popup="true"
+          }}
+          <ul class="f-submenu account">
+            <li>
+              <a href="{{@site.url}}/account">
+                <span>{{t "Account"}}</span>
+              </a>
+            </li>
+            <li>
+              <a href="#signout" data-members-signout>
+                <span>{{t "Sign Out"}}</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      {{else}}
+        <nav
+          role="navigation"
+          aria-label="{{t "Members menu"}}"
+          class="horizontal-centered-items"
+        >
+          <a
+            href="{{@site.url}}/signup"
+            class="f-button primary in-desktop-top-bar"
+          >
+            {{t "Sign up"}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+          <a
+            href="{{@site.url}}/signin"
+            class="f-button in-desktop-top-bar"
+          >
+            {{t "Sign in"}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </nav>
+      {{/if}}
+      {{> search
+        input_id="search-desktop-top-bar"
+        search_container_class="f-desktop-top-bar-search"
+      }}
+    </div>
+  </div>
+</div>
+
+<script>
+  window.desktopMenu = () => {
+    return {
+      showPostTitle: false,
+      menuHeight: 0,
+      lastScrollTop: 0,
+      ticking: false,
+      postTitle: null,
+      threshold: 5,
+      minAbsoluteScroll: 0,
+      lastDirectionChangePosition: 0,
+      isPostTitleVisible() { return this.showPostTitle === true },
+      initScrollFeature(isPost) {
+        if (isPost && !this.isMobile()) {
+          this.menuHeight = this.$refs.desktop_menu.offsetHeight
+          this.postTitle = document.querySelector('.js-article-title')
+          window.addEventListener(
+            'scroll',
+            this.handleScroll.bind(this),
+            { passive: true }
+          )
+        }
+      },
+      handleScroll() {
+        this.requestTick()
+      },
+      requestTick() {
+        if (!this.ticking) {
+          requestAnimationFrame(this.update.bind(this))
+        }
+        this.ticking = true
+      },
+      update() {
+        const pos = window.pageYOffset
+        const trigger = this.postTitle.getBoundingClientRect().top + pos
+        const triggerOffset = this.postTitle.offsetHeight
+
+        if (this.lastScrollTop >= trigger + triggerOffset) {
+          if (this.scrolledUp(pos)) {
+            if (this.minAbsoluteScroll >= this.threshold) {
+              this.showPostTitle = false
+            }
+          } else {
+            if (this.minAbsoluteScroll >= this.threshold) {
+              this.showPostTitle = true
+            }
+          }
+        } else {
+          this.showPostTitle = false
+        }
+
+        this.lastScrollTop = window.pageYOffset
+        this.ticking = false
+      },
+      scrolledUp(currentScrollPosition) {
+        let up = false
+
+        if (currentScrollPosition < this.lastScrollTop) {
+          up = true
+        }
+
+        this.minAbsoluteScroll = Math.abs(
+          currentScrollPosition - this.lastScrollTop
+        )
+
+        return up
+      },
+      isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      }
+    }
+  }
+</script>

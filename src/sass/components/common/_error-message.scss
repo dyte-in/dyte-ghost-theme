@@ -1,0 +1,16 @@
+.f-error-message {
+  display: block;
+  color: var(--error-color);
+  line-height: 1.5;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding-top: 0.625rem;
+
+  @include respond-to('medium') {
+    font-size: 0.8125rem;
+  }
+
+  &.bottom-space {
+    margin-bottom: 1.25rem;
+  }
+}

@@ -1,0 +1,118 @@
+.f-footer {
+  flex-shrink: 0;
+  position: relative;
+  padding-top: 1.3125rem;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    padding-top: 2.0625rem;
+  }
+
+  @include respond-to('extra-large') {
+    padding-top: 3.125rem;
+  }
+}
+
+.f-footer__divider {
+  position: absolute;
+  left: 0;
+  top: 0.0625rem;
+  width: 100%;
+  height: 1.3125rem;
+  overflow: hidden;
+  line-height: 0;
+
+  @include respond-to('medium') {
+    height: 2.0625rem;
+  }
+
+  @include respond-to('extra-large') {
+    height: 3.125rem;
+  }
+
+  svg {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .shape-fill {
+    fill: var(--hero-background-color);
+  }
+}
+
+.f-footer__container {
+  padding: 4.375rem var(--mobile-space);
+  background-color: var(--hero-background-color);
+
+  @include respond-to('medium') {
+    padding: 4.375rem 3.75rem;
+  }
+
+  @include respond-to('large') {
+    padding: 6.25rem 3.75rem;
+  }
+
+  @include respond-to('extra-large') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.f-footer__wrapper {
+  position: relative;
+  width: 100%;
+  max-width: var(--standard-wrapper-max-width);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.f-footer__columns-container {
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to('large') {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3.125rem;
+  }
+}
+
+.f-footer__logo-container {
+  margin-bottom: 2.1875rem;
+
+  @include respond-to('large') {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.f-footer__nav-container {
+  @include respond-to('large') {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+}
+
+.f-footer__logo-bg {
+  display: inline-block;
+  padding: 0.1875rem;
+  border-radius: 2.1875rem;
+  background-color: var(--background-color);
+
+  &.no-logo {
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+  }
+}
+
+.f-footer__nav-container {
+  margin-bottom: 1.25rem;
+
+  @include respond-to('large') {
+    margin-bottom: 0;
+  }
+}

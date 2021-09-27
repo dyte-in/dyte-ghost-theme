@@ -1,0 +1,10 @@
+.f-posts-container {
+  position: relative;
+
+  @include respond-to('medium') {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% + 2.5rem);
+    margin: 0 -1.25rem;
+  }
+}

@@ -1,0 +1,17 @@
+.f-account-wrapper {
+  position: relative;
+  padding: 1.5625rem var(--mobile-space) 0;
+  width: 100%;
+  max-width: var(--small-wrapper-max-width);
+  margin: 0 auto;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    padding-top: 0;
+  }
+
+  @include respond-to('extra-large') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

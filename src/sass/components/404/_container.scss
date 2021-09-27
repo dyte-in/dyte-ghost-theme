@@ -1,0 +1,21 @@
+.f-404-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: calc(100vh - var(--top-bar-height));
+}
+
+.f-404-container__wrapper {
+  padding: 7.8125rem var(--mobile-space);
+  position: relative;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    width: var(--small-wrapper-max-width);
+    margin: 0 auto;
+  }
+
+  @include respond-to('extra-large') {
+    width: var(--medium-wrapper-max-width);
+  }
+}

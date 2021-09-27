@@ -1,0 +1,68 @@
+.f-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: var(--border-color);
+  @include transition(all ease 0.1s);
+
+  &:focus {
+    outline: 0;
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+
+  &.no-image {
+    img {
+      width: 65%;
+      height: 65%;
+    }
+  }
+
+  &.no-action {
+    cursor: default;
+  }
+
+  &.in-desktop-top-bar {
+    margin-left: 0.9375rem;
+  }
+
+  &.in-post-card {
+    flex-shrink: 0;
+  }
+
+  &.in-collection-header {
+    width: 7.8125rem;
+    height: 7.8125rem;
+    margin-bottom: 1.5625rem;
+
+    @include respond-to('large') {
+      width: 9.375rem;
+      height: 9.375rem;
+      margin-bottom: 2.1875rem;
+    }
+  }
+
+  &.in-article-header {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+.rtl {
+  .f-avatar.in-desktop-top-bar {
+    margin-left: 0;
+    margin-right: 0.9375rem;
+  }
+}

@@ -1,0 +1,122 @@
+{{!--
+  This footer template is shared across all the pages.
+--}}
+
+<footer class="f-footer" x-data="footer()" x-init="checkSocialLinks">
+  <div class="f-footer__container">
+    <div class="f-footer__divider">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="375"
+        height="21"
+        viewBox="0 0 375 21"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <g transform="matrix(1 0 0 -1 0 21)">
+          <path
+            d="M0,0 L0,9.1577781 C14.934375,13.5497132 32.371875,15.5221272 49.375,14.6971556 C71.3625,13.6347822 91.978125,8.10727471 114,7.27834643 C137.075,6.41578621 160.10625,10.6177997 182.1875,14.2540054 C203.834375,17.8150339 225.40625,19.1761381 247.625,16.8416861 C258.921875,15.6546766 269.453125,13.3123113 280.265625,11.0372098 C309.215625,4.94587281 347.8125,-2.8270609 375,10.3803979 L375,0 L0,0 Z"
+            opacity=".199"
+            class="shape-fill"
+          />
+          <path
+            d="M0,0 L0,3.01856876 C4.0625,7.04905493 8.6375,10.8561556 14.903125,13.7563491 C31.065625,21.244538 51.5625,21.1929875 70.18125,17.4851693 C79.915625,15.547252 88.959375,12.5076812 98.203125,9.88624227 C110.990625,6.25861378 124.68125,1.10356277 139.0875,0.40285769 C150.41875,-0.141286583 161.24375,2.20139771 169.9,6.42853954 C179.828125,11.2761968 189.375,18.2660641 202.284375,20.36627 C214.921875,22.4263812 227.70625,19.088963 239.5125,15.7305427 C251.31875,12.3721224 263,8.2843579 276.05,7.51110025 C294.715625,6.39417253 311.45,11.8795287 328.83125,14.9267366 C338.26875,16.5801715 347.26875,16.1047612 356.046875,13.494778 C363.05625,11.4155741 371.046875,8.35309191 375,4.09349236 L375,0 L0,0 Z"
+            opacity=".297"
+            class="shape-fill"
+          />
+          <path
+            d="M0,0 L0,1.11474158 C46.853125,11.6820165 98.153125,14.12138 148.696875,8.42887191 C162.134375,6.91614978 175.01875,4.44510628 188.575,3.18978451 C207.0125,1.48104209 223.725,5.61330793 240.3125,10.1989944 C258.728125,15.2895816 276.875,18.8575467 297.25,17.8200252 C324.290625,16.4340232 351.14375,8.7694324 375,1.02762145 L375,0 L0,0 Z"
+            class="shape-fill"
+          />
+        </g>
+      </svg>
+    </div>
+    <div class="f-footer__wrapper">
+      <div class="f-footer__columns-container">
+        <div class="f-footer__logo-container">
+          <div class="f-footer__logo-bg {{^if @site.logo}} no-logo {{/if}}">
+            {{> logo logo_class="in-footer"}}
+          </div>
+        </div>
+        <div class="f-footer__nav-container">
+          {{#if @site.navigation}}
+            <nav
+              class="f-footer-navigation"
+              role="navigation"
+              aria-label="{{t "Main links in footer"}}"
+            >
+              <span class="f-footer-navigation__title">
+                {{t "Main links"}}
+              </span>
+              <ul class="f-footer-navigation__list">
+                {{navigation}}
+              </ul>
+            </nav>
+          {{/if}}
+          {{#if @site.secondary_navigation}}
+            <nav
+              class="f-footer-navigation"
+              role="navigation"
+              aria-label="{{t "Secondary links in footer"}}"
+            >
+              <span class="f-footer-navigation__title">
+                {{t "Secondary links"}}
+              </span>
+              <ul class="f-footer-navigation__list">
+                {{navigation type="secondary"}}
+              </ul>
+            </nav>
+          {{/if}}
+          <nav
+            class="f-footer-navigation"
+            role="navigation"
+            aria-label="{{t "Social links in footer"}}"
+            x-ref="social_navigation"
+          >
+            <span class="f-footer-navigation__title">
+              {{t "Social links"}}
+            </span>
+            <ul class="f-footer-navigation__list" x-ref="social_list">
+              {{#if @site.facebook}}
+                <li>
+                  <a href="{{facebook_url @site.facebook}}" class="social">
+                    <span class="icon-facebook" aria-hidden="true"></span>
+                    Facebook
+                  </a>
+                </li>
+              {{/if}}
+              {{#if @site.twitter}}
+                <li>
+                  <a href="{{twitter_url @site.twitter}}" class="social">
+                    <span class="icon-twitter" aria-hidden="true"></span>
+                    Twitter
+                  </a>
+                </li>
+              {{/if}}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="f-footer__copyright-container">
+        <p class="f-footer-copyright">
+          &copy; {{@site.title}} {{date format="YYYY"}}
+        </p>
+        <p class="f-footer-copyright last">
+          {{t "Published with"}} <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.footer = () => {
+    return {
+      checkSocialLinks() {
+        if (this.$refs.social_list.children.length === 0) {
+          this.$refs.social_navigation.remove()
+        }
+      }
+    }
+  }
+</script>

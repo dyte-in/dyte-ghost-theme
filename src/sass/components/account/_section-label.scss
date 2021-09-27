@@ -1,0 +1,12 @@
+.f-account-section-label {
+  color: var(--secondary-text-color);
+  line-height: 1.4;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0 0 1.25rem;
+
+  @include respond-to('medium') {
+    font-size: 0.9375rem;
+    margin-bottom: 1.875rem;
+  }
+}

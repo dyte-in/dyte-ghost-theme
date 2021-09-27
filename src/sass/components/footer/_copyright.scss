@@ -1,0 +1,15 @@
+.f-footer-copyright {
+  color: var(--footer-text-color);
+  line-height: 1.4;
+  font-size: 0.8125rem;
+  margin-bottom: 0.9375rem;
+  opacity: 0.6;
+
+  &.last {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+}

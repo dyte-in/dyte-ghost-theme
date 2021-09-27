@@ -1,0 +1,48 @@
+{{!--
+  This template is used for the newsletter page.
+--}}
+
+{{!-- This block preloads specific assets for the newsletter page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/auth.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the newsletter page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/auth.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <div class="f-auth-container">
+    {{#post}}
+      <main
+        class="f-auth-container__wrapper {{^if feature_image}}no-image{{/if}}"
+        role="main"
+      >
+        {{#if feature_image}}
+          <div class="f-auth-image">
+            <img
+              data-src="{{img_url feature_image size="m"}}"
+              alt=""
+              class="lazy"
+              width="300"
+              height="500"
+            >
+          </div>
+        {{/if}}
+        {{> "newsletter-form"}}
+      </main>
+    {{/post}}
+    {{> blob-shape alt_version="true"}}
+  </div>
+</div>

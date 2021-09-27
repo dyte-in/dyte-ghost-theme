@@ -1,0 +1,48 @@
+{{!--
+  This template renders a related article.
+--}}
+
+<article
+  class="f-related-article {{post_class}} post-access-{{visibility}} {{^if feature_image}}no-image{{/if}} index-{{@index}} {{#if @last}}last{{/if}}"
+>
+  <span
+    class="f-access-tag in-related-article {{^if feature_image}}border{{/if}} {{visibility}}">
+    {{t visibility}}
+  </span>
+  {{#if feature_image}}
+    <a
+      href="{{url}}"
+      class="f-related-article__image"
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <img
+        data-src="{{img_url feature_image size="m"}}"
+        alt=""
+        class="lazy"
+        width="335"
+        height="200"
+      >
+    </a>
+  {{/if}}
+  <div class="f-related-article__content">
+    <div>
+      <a href="{{url}}" class="f-related-article__title">
+        <h3>{{title}}</h3>
+      </a>
+    </div>
+    <div>
+      <div class="f-related-article__timestamp">
+        <span class="f-related-article__timestamp__date">
+          {{date published_at timeago="true"}}
+        </span>
+        {{#if reading_time}}
+          <span class="f-related-article__timestamp__divider">&nbsp; &bull; &nbsp;</span>
+          <span class="f-related-article__timestamp__read">
+            {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}
+          </span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</article>

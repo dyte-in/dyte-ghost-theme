@@ -1,0 +1,60 @@
+{{!--
+  This template is used for pages.
+--}}
+
+{{!-- This block preloads specific assets for the page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/post.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/post.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <main
+    class="f-standard-container has-newsletter"
+    role="main"
+  >
+    {{!-- Everything inside the #post tags pulls data from the post --}}
+    {{#post}}
+      <div class="f-standard-wrapper in-post">
+        <article class="f-article">
+          {{> post-header}}
+          <div class="f-article-content js-article-content">
+            {{#if access}}
+              {{content}}
+            {{else}}
+              {{{html}}}
+              {{> post-access}}
+            {{/if}}
+          </div>
+        </article>
+        {{!-- Share  --}}
+        {{> share-post}}
+      </div>
+    {{/post}}
+    {{> blob-shape}}
+  </main>
+  <section class="f-newsletter" aria-label="{{t "Newsletter form"}}">
+    <div class="f-newsletter__wrapper">
+      {{> "newsletter-form"}}
+    </div>
+  </section>
+</div>
+
+{{!-- This block loads specific scripts for the page --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/post.js"}}"></script>
+{{/contentFor}}

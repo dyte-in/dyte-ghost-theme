@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+
+<head>
+  {{!-- Document Settings --}}
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  {{!-- Base Meta --}}
+  <title>{{meta_title}}</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {{!-- Preload assets --}}
+  <link rel="preload" href="{{asset "css/app.css"}}" as="style" />
+  <link rel="preload" href="{{asset "js/manifest.js"}}" as="script" />
+  <link rel="preload" href="{{asset "js/vendor.js"}}" as="script" />
+  <link rel="preload" href="{{asset "js/app.js"}}" as="script" />
+
+  {{!-- This #block helper will try to preload page-specific assets --}}
+  {{{block "preload"}}}
+
+  {{!-- Global styles --}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/app.css"}}"
+    media="screen"
+  />
+
+  {{!-- This #block helper will inject a stylesheet for a specific page --}}
+  {{{block "styles"}}}
+
+  {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+  {{ghost_head}}
+
+  {{!-- This style overrides the accent color to match the one from the Admin --}}
+  <style>
+    :root {
+      --button-background-color: var(--ghost-accent-color);
+      --accent-color: var(--ghost-accent-color);
+    }
+  </style>
+
+  {{!-- Font-face --}}
+  <style>
+    /* These font-faces are here to make fonts work if the Ghost instance is installed in a subdirectory */
+
+    /* Poppins regular */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local('Poppins Regular'), local('Poppins-Regular'),
+      url("{{asset 'fonts/poppins/poppins-regular.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/poppins/poppins-regular.woff'}}") format('woff');
+    }
+
+    /* Poppins italic */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: local('Poppins Italic'), local('Poppins-Italic'),
+      url("{{asset 'fonts/poppins/poppins-italic.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/poppins/poppins-italic.woff'}}") format('woff');
+    }
+
+    /* Poppins 500 */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local('Poppins Medium'), local('Poppins-Medium'),
+      url("{{asset 'fonts/poppins/poppins-500.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/poppins/poppins-500.woff'}}") format('woff');
+    }
+
+    /* Poppins 600 */
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: local('Poppins SemiBold'), local('Poppins-SemiBold'),
+      url("{{asset 'fonts/poppins/poppins-600.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/poppins/poppins-600.woff'}}") format('woff');
+    }
+
+    /* Firma iconfont */
+    @font-face {
+      font-family: 'firma';
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      src: url("{{asset 'fonts/firma/firma.eot'}}");
+      src: url("{{asset 'fonts/firma/firma.eot'}}") format('embedded-opentype'), url("{{asset 'fonts/firma/firma.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/firma/firma.woff'}}") format('woff'),
+      url("{{asset 'fonts/firma/firma.ttf'}}") format('truetype'),
+      url("{{asset 'fonts/firma/firma.svg'}}") format('svg');
+    }
+  </style>
+</head>
+
+<body class="{{body_class}}">
+  {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
+  {{{body}}}
+
+  {{!-- The footer --}}
+  {{> footer}}
+
+  {{!-- Common scripts shared between pages --}}
+  <script src="{{asset "js/manifest.js"}}" defer></script>
+  <script src="{{asset "js/vendor.js"}}" defer></script>
+  <script src="{{asset "js/app.js"}}" defer></script>
+
+  {{!-- The #block helper will pull in data from the #contentFor other template files --}}
+  {{{block "scripts"}}}
+
+  {{!-- Ghost outputs important scripts and data with this tag --}}
+  {{ghost_foot}}
+
+  {{!--
+  
+  CREDITS:
+
+  Poppins Font
+  https://fonts.google.com/specimen/Poppins
+  Copyright (c) Indian Type Foundry
+
+  Alpine.js
+  Copyright © 2019-2020 Caleb Porzio and contributors
+
+  Ghost content-api
+  MIT License
+  Copyright (c) 2018-2019 Ghost Foundation
+
+  Fuse.js - Lightweight fuzzy-search (http://fusejs.io)
+  Copyright (c) 2020 Kiro Risk (http://kiro.me)
+  All Rights Reserved. Apache Software License 2.0
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  LazyLoad
+  MIT License
+  Copyright (c) 2015 Andrea Verlicchi
+
+  lightense-images
+  MIT License
+  © Tunghsiao Liu
+
+  fitvids
+  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+  Copyright (C) 2015 Ross Zurowski <ross@rosszurowski.com>
+
+  Logos and Brands icon set by Avatar Flatart
+  https://www.freepik.com/flatart
+
+
+  Tocbot
+  The MIT License (MIT)
+  Copyright (c) 2016 Tim Scanlin
+
+  --}}
+</body>
+
+</html>

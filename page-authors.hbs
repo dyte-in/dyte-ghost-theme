@@ -1,0 +1,61 @@
+{{!--
+  This template is used for the authors page.
+--}}
+
+{{!-- This block preloads specific assets for the authors page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/collection.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the authors page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/collection.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <div class="f-standard-container in-collection">
+    <main class="f-standard-wrapper" role="main">
+      {{!-- Everything inside the #post tags pulls data from the page --}}
+      {{#post}}
+        {{>
+          collection-header
+          title=title
+          description=custom_excerpt
+          collection_image=feature_image
+        }}
+      {{/post}}
+      {{#get 'authors' limit='all' order='name asc'}}
+        <div class="f-collection-grid">
+          {{#foreach authors}}
+            {{>
+              collection-item
+              url=url
+              item_image=profile_image
+              default_image=(asset "images/user.svg")
+              title=name
+              label=(t "{label}'s profile'" label=name)
+            }}
+          {{else}}
+            {{>
+              empty-content
+              extra_class="in-collection"
+              title=(t "No authors were found")
+              description=(t "Apparently there are no authors at the moment, please check again later.")
+            }}
+          {{/foreach}}
+        </div>
+      {{/get}}
+    </main>
+  </div>
+  {{> blob-shape alt_version="true"}}
+</div>

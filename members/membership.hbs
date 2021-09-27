@@ -1,0 +1,33 @@
+{{!--
+  This template is used for the membership page.
+--}}
+
+{{!-- This block preloads specific assets for the membership page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/membership.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the membership page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/membership.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< ../default}}
+
+<div class="f-main-container">
+  {{> header}}
+  {{#if @member.paid}}
+    {{!-- Logged in, paying member: Redirect home --}}
+    <script>window.location = '{{@site.url}}'</script>
+  {{else}}
+    {{!-- Not logged in or not paying: Check out --}}
+    {{> "membership"}}
+  {{/if}}
+</div>

@@ -1,0 +1,15 @@
+{{!--
+  This template renders the blog title or logo when is available.
+--}}
+
+<a
+  href="{{@site.url}}"
+  class="f-logo {{logo_class}} {{^if @site.logo}} no-logo {{/if}}"
+  title="{{@site.title}}"
+>
+  {{#if @site.logo}}
+    <img src="{{@site.logo}}" alt="">
+  {{else}}
+    <span>{{@site.title}}</span>
+  {{/if}}
+</a>

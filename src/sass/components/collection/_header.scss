@@ -1,0 +1,35 @@
+.f-collection-header {
+  margin-bottom: 2.1875rem;
+
+  @include respond-to('medium') {
+    margin-bottom: 3.125rem;
+  }
+
+  @include respond-to('large') {
+    flex-shrink: 0;
+    max-width: 34.375rem;
+    padding-right: 5rem;
+  }
+
+  @include respond-to('extra-large') {
+    margin-bottom: 0 !important;
+  }
+
+  &.no-image {
+    padding-right: 0 !important;
+    margin-bottom: 0;
+  }
+}
+
+.rtl {
+  .f-collection-header {
+    @include respond-to('large') {
+      padding-right: 0;
+      padding-left: 5rem;
+    }
+
+    &.no-image {
+      padding-left: 0 !important;
+    }
+  }
+}

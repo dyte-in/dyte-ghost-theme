@@ -1,0 +1,22 @@
+.f-standard-wrapper {
+  position: relative;
+  padding: 0 var(--mobile-space);
+  width: 100%;
+  max-width: var(--standard-wrapper-max-width);
+  margin: 0 auto;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    padding-left: 3.75rem;
+    padding-right: 3.75rem;
+  }
+
+  @include respond-to('extra-large') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.in-post {
+    z-index: auto;
+  }
+}

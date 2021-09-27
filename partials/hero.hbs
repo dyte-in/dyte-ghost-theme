@@ -1,0 +1,80 @@
+{{!--
+  This template renders the hero in the home page.
+--}}
+
+<section class="f-hero {{^if @site.cover_image}}no-image{{/if}}">
+  <div class="f-hero__content">
+    {{#if @site.cover_image}}
+      <div class="f-hero__image-container">
+        <div class="f-hero__desktop-shape">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="120"
+            height="700"
+            viewBox="0 0 120 700"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M600,0 C541.333333,103.622802 512,220.456135 512,350.5 C512,480.543865 541.333333,597.043865 600,700 L480,700 L480,0 L600,0 Z"
+              transform="translate(-480)"
+              class="shape-fill"
+            />
+          </svg>
+        </div>
+        <img
+          data-src="{{img_url @site.cover_image size='l'}}"
+          data-srcset="
+            {{img_url @site.cover_image size='m'}} 750w,
+            {{img_url @site.cover_image size='l'}} 1050w,
+            {{img_url @site.cover_image size='xl'}} 1750w
+          "
+          sizes="
+            (max-width: 48rem) 46.875rem,
+            (max-width: 64rem) 65.625rem,
+            109.375rem
+          "
+          alt=""
+          class="f-hero__image lazy"
+          width="780"
+          height="700"
+        >
+      </div>
+    {{/if}}
+    <div class="f-hero__text-container">
+      <div class="f-hero__text-wrapper">
+        <h1 class="f-hero__title">{{@site.title}}</h1>
+        {{#if @site.description}}
+          <p class="f-hero__description">{{@site.description}}</p>
+        {{/if}}
+        {{^if @member}}
+          <a
+            href="{{@site.url}}/signup"
+            class="f-button primary medium"
+          >
+            {{t "Sign up now"}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="f-hero__mobile-shape">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="375"
+      height="50"
+      viewBox="0 0 375 50"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M0,550 L375,550 L375,500 C312.5,516.666667 250,525 187.5,525 C125,525 62.5,516.666667 0,500 L0,550 Z"
+        transform="translate(0 -500)"
+        class="shape-fill"
+      />
+    </svg>
+  </div>
+</section>

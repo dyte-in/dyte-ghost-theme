@@ -1,0 +1,41 @@
+.f-logo {
+  display: inline-block;
+  padding: 0.3125rem;
+  border-radius: 1.5625rem;
+  @include transition(box-shadow ease 0.1s);
+
+  &:focus {
+    outline: 0;
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+
+  &.in-mobile-top-bar {
+    &.no-logo {
+      max-width: calc(100% - 4.375rem);
+    }
+  }
+
+  &.in-desktop-top-bar {
+    flex-shrink: 0;
+    z-index: 3;
+  }
+
+  &.in-footer {
+    padding: 0.3125rem 0.625rem;
+
+    span {
+      color: var(--background-color);
+    }
+  }
+
+  img {
+    width: auto;
+    height: 1.5rem;
+  }
+
+  span {
+    color: var(--foreground-color);
+    font-weight: 600;
+    @include strip(1, 1.375, 1.3);
+  }
+}

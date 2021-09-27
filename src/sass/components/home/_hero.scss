@@ -1,0 +1,254 @@
+.f-hero {
+  position: relative;
+  margin-bottom: 1.5625rem;
+  background-color: var(--hero-background-color);
+
+  @include respond-to('medium') {
+    margin-bottom: 3.125rem;
+  }
+
+  @include respond-to('large') {
+    margin-bottom: 4.6875rem;
+  }
+
+  &.no-image {
+    .f-hero__content {
+      @include respond-to('large') {
+        padding-bottom: 4.6875rem;
+      }
+    }
+
+    .f-hero__text-container {
+      @include respond-to('medium') {
+        width: 100%;
+        align-items: center;
+      }
+    }
+
+    .f-hero__text-wrapper {
+      @include respond-to('medium') {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 53.75rem;
+        padding: 5rem 2.5rem !important;
+      }
+
+      @include respond-to('extra-large') {
+        max-width: 60rem;
+        padding: 5rem 0 !important;
+      }
+    }
+
+    .f-hero__title,
+    .f-hero__description {
+      @include respond-to('medium') {
+        text-align: center;
+      }
+    }
+
+    .f-hero__title {
+      @include respond-to('large') {
+        font-size: 3.75rem;
+      }
+
+      @include respond-to('extra-large') {
+        font-size: 4.25rem;
+        margin-bottom: 1.875rem;
+      }
+    }
+
+    .f-hero__description {
+      @include respond-to('medium') {
+        max-width: 32.5rem;
+      }
+
+      @include respond-to('extra-large') {
+        max-width: 38.75rem;
+      }
+    }
+
+    .f-hero__mobile-shape {
+      @include respond-to('large') {
+        display: block;
+        height: 4.6875rem;
+      }
+    }
+  }
+}
+
+.f-hero__content {
+  position: relative;
+  padding-bottom: 3.125rem;
+  z-index: 1;
+
+  @include respond-to('large') {
+    display: flex;
+    justify-content: space-between;
+    min-height: 43.75rem;
+    padding-bottom: 0;
+  }
+}
+
+.f-hero__image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1;
+
+  @include respond-to('large') {
+    position: relative;
+    top: auto;
+    left: auto;
+    opacity: 1;
+    order: 2;
+    width: calc(50%);
+    height: auto;
+  }
+
+  @include respond-to('largest') {
+    width: calc(50% + 7.5rem);
+  }
+}
+
+.f-hero__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.f-hero__text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  min-height: 31.25rem;
+  z-index: 2;
+
+  @include respond-to('large') {
+    align-items: flex-end;
+    order: 1;
+    width: calc(50%);
+    min-height: 0;
+  }
+
+  @include respond-to('largest') {
+    width: calc(50% - 7.5rem);
+  }
+}
+
+.f-hero__text-wrapper {
+  padding: 5rem var(--mobile-space);
+  max-width: 32.5rem;
+
+  @include respond-to('medium') {
+    padding: 5rem 2.5rem;
+    max-width: 38.75rem;
+  }
+
+  @include respond-to('large') {
+    padding-right: 4.6875rem;
+  }
+
+  @include respond-to('largest') {
+    max-width: 34.375rem;
+  }
+}
+
+.f-hero__title {
+  color: var(--featured-main-color);
+  line-height: 1.3;
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+
+  @include respond-to('largest') {
+    font-size: 4rem;
+  }
+}
+
+.f-hero__description {
+  color: var(--background-text-color);
+  line-height: 1.7;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.875rem;
+}
+
+.f-hero__mobile-shape {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3.125rem;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 2;
+
+  @include respond-to('large') {
+    display: none;
+  }
+
+  svg {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: calc(100% + 0.0625rem);
+  }
+
+  .shape-fill {
+    fill: var(--background-color);
+  }
+}
+
+.f-hero__desktop-shape {
+  display: none;
+
+  @include respond-to('large') {
+    display: block;
+    position: absolute;
+    left: -0.0625rem;
+    bottom: 0;
+    width: 7.5rem;
+    height: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 2;
+  }
+
+  svg {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .shape-fill {
+    fill: var(--hero-background-color);
+  }
+}
+
+.rtl {
+  .f-hero__text-wrapper {
+    @include respond-to('large') {
+      padding-right: 2.5rem;
+      padding-left: 4.6875rem;
+    }
+  }
+
+  .f-hero__desktop-shape {
+    @include respond-to('large') {
+      left: auto;
+      right: -0.0625rem;
+      @include transform(rotate(180deg));
+    }
+  }
+}

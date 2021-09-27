@@ -1,0 +1,155 @@
+{{!--
+  This template renders the mobile menu.
+--}}
+
+<div class="f-mobile-top-bar" x-data="mobileMenu()">
+  {{> logo logo_class="in-mobile-top-bar"}}
+  <button
+    class="f-menu-button no-appearance content-centered"
+    aria-label="{{t "Open menu"}}"
+    @click.stop="openMenu"
+  >
+    <span class="icon-menu" aria-hidden="true"></span>
+  </button>
+  <div
+    class="f-mobile-menu"
+    :class="{ 'opened': isMenuOpen() }"
+    @click.away="closeMenu"
+  >
+    <div class="f-mobile-menu__container">
+      <button
+        class="f-mobile-menu__close no-appearance content-centered"
+        aria-label="{{t "Close menu"}}"
+        @click="closeMenu"
+      >
+        <span class="icon-close" aria-hidden="true"></span>
+      </button>
+      <div class="f-mobile-menu__main">
+        {{#if @site.navigation}}
+          <div class="f-mobile-menu__nav-section">
+            <span class="f-mobile-menu__nav-title">
+              {{t "Main links"}}
+            </span>
+            <nav role="navigation" aria-label="{{t "Main links"}}">
+              <ul class="f-mobile-menu__navigation-list">
+                {{navigation}}
+              </ul>
+            </nav>
+          </div>
+        {{/if}}
+        {{#if @site.secondary_navigation}}
+          <hr class="f-mobile-menu__nav-divider">
+          <div class="f-mobile-menu__nav-section">
+            <span class="f-mobile-menu__nav-title">
+              {{t "Secondary links"}}
+            </span>
+            <nav role="navigation" aria-label="{{t "Secondary links"}}">
+              <ul class="f-mobile-menu__navigation-list">
+                {{navigation type="secondary"}}
+              </ul>
+            </nav>
+          </div>
+        {{/if}}
+        {{#has any="@site.twitter, @site.facebook"}}
+          <hr class="f-mobile-menu__nav-divider">
+          <div class="f-mobile-menu__nav-section">
+            <nav
+              role="navigation"
+              aria-label="{{t "Social links"}}"
+              class="horizontal-centered-items"
+            >
+              {{#if @site.facebook}}
+                <a
+                  href="{{facebook_url @site.facebook}}"
+                  class="f-icon-button content-centered simple social in-mobile-menu"
+                  aria-label="Facebook"
+                >
+                  <span class="icon-facebook" aria-hidden="true"></span>
+                </a>
+              {{/if}}
+              {{#if @site.twitter}}
+                <a
+                  href="{{twitter_url @site.twitter}}"
+                  class="f-icon-button content-centered simple social in-mobile-menu"
+                  aria-label="Twitter"
+                >
+                  <span class="icon-twitter" aria-hidden="true"></span>
+                </a>
+              {{/if}}
+            </nav>
+          </div>
+        {{/has}}
+      </div>
+      <div class="f-mobile-menu__footer">
+        <div class="f-mobile-menu__footer-inner">
+          <div class="f-mobile-menu__footer-side">
+            {{#if @member}}
+              <div class="f-mobile-menu__account">
+                {{> avatar 
+                  avatar_url=(concat @site.url "/account")
+                  avatar_class="in-mobile-menu"
+                  avatar_image=(img_url @member.avatar_image size="xxs")
+                  avatar_alt=@member.name
+                  as_button="true"
+                }}
+                <ul
+                  class="f-submenu account"
+                  :class="{ opened: isAccountMenuOpen() }"
+                  aria-label="{{t "Account menu"}}"
+                  @click.away="closeAccountMenu"
+                >
+                  <li>
+                    <a href="{{@site.url}}/account">
+                      <span>{{t "Account"}}</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#signout" data-members-signout>
+                      <span>{{t "Sign Out"}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            {{else}}
+              <a
+                href="{{@site.url}}/signup"
+                class="f-button primary in-mobile-menu"
+              >
+                {{t "Sign up"}}
+                <span class="icon-chevron-right" aria-hidden="true"></span>
+              </a>
+              <a
+                href="{{@site.url}}/signin"
+                class="f-button in-mobile-menu"
+              >
+                {{t "Sign in"}}
+                <span class="icon-chevron-right" aria-hidden="true"></span>
+              </a>
+            {{/if}}
+          </div>
+          <div class="f-mobile-menu__footer-side">
+            {{> search
+              input_id="search-mobile-menu"
+              search_container_class="f-mobile-menu__search"
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.mobileMenu = () => {
+    return {
+      showMenu: false,
+      showAccountMenu: false,
+      openMenu() { this.showMenu = true },
+      closeMenu() { this.showMenu = false },
+      isMenuOpen() { return this.showMenu === true },
+      openAccountMenu() { this.showAccountMenu = true },
+      closeAccountMenu() { this.showAccountMenu = false },
+      isAccountMenuOpen() { return this.showAccountMenu === true }
+    }
+  }
+</script>

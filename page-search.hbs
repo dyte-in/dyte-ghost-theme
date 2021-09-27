@@ -1,0 +1,290 @@
+{{!--
+  This template is used for the search page.
+--}}
+
+{{!-- This block preloads specific assets for the search page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/search.css"}}" as="style" />
+  <link
+    rel="preload"
+    href="{{asset "js/vendor/search-libs.min.js"}}"
+    as="script"
+  />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the search page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/search.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <div class="f-standard-container has-newsletter">
+    <div class="f-standard-wrapper">
+      <div
+        class="f-search-container"
+        x-data="pageSearch('{{@site.url}}', '{{t "members"}}', '{{t "paid"}}')"
+        x-init="checkSearchFeature"
+      >
+        <main class="f-search-container__main" role="main">
+          <h1 class="f-search-title">
+            {{t "Results for:"}}
+            <span x-text="query"></span>
+          </h1>
+          <template x-if="loadingPosts">
+            <div class="f-loading-indicator"></div>
+          </template>
+          <template x-if="!loadingPosts && posts.length > 0" x-cloak>
+            <div class="f-search-container__results">
+              <template x-for="post in posts" :key="post.id">
+                <article class="f-search-result">
+                  <a :href="post.url" class="f-search-result__link">
+                    <template x-if="post.feature_image">
+                      <div class="f-search-result__image">
+                        <img
+                          :data-src="post.feature_image"
+                          alt=""
+                          class="lazy"
+                          width="250"
+                          height="200"
+                        >
+                      </div>
+                    </template>
+                    <div class="f-search-result__info">
+                      <span
+                        class="f-access-tag border in-search-result"
+                        :class="post.visibility"
+                        x-text="visibilityTypes[post.visibility]"
+                      >
+                      </span>
+                      <h2
+                        class="f-search-result__title"
+                        x-text="post.title"
+                      ></h2>
+                      <template x-if="post.custom_excerpt">
+                        <p
+                          class="f-search-result__excerpt"
+                          x-text="post.custom_excerpt"
+                        ></p>
+                      </template>
+                      <span
+                        class="f-search-result__date"
+                        x-text="formDate(post.published_at)"
+                      ></span>
+                    </div>
+                  </a>
+                </article>
+              </template>
+            </div>
+          </template>
+          <template x-if="!loadingPosts && errorLoadingPosts" x-cloak>
+            {{>
+              empty-content
+              extra_class="in-search"
+              title=(t "We're sorry!")
+              description=(t "We couldn't find any results for your search. Please try again with another keywords.")
+            }}
+          </template>
+        </main>
+        <aside class="f-search-container__sidebar">
+          <div class="f-search-container__sidebar__container">
+            <div class="f-search-sidebar-section">
+              <h3 class="f-search-sidebar-section__title">
+                {{t "Recent articles"}}
+              </h3>
+              {{#get
+                "posts"
+                limit="4"
+                order="published_at desc"
+                as |recent_articles|
+              }}
+                {{#if recent_articles}}
+                  {{#foreach recent_articles}}
+                    {{> "recent-post"}}
+                  {{/foreach}}
+                {{else}}
+                  <p class="f-search-sidebar-section__empty">
+                    {{t "Apparently there are no recent articles at the moment, please check again later."}}
+                  </p>
+                {{/if}}
+              {{/get}}
+            </div>
+            <div class="f-search-sidebar-section last">
+              <h3 class="f-search-sidebar-section__title">{{t "Tags"}}</h3>
+              {{#get "tags" limit="10" as |tags|}}
+                {{#if tags}}
+                  <ul class="f-search-sidebar-section__list">
+                    {{#foreach tags}}
+                      <li class="f-search-tag">
+                        <a href="{{url}}">
+                          {{name}}
+                          <span
+                            class="icon-chevron-right"
+                            aria-hidden="true"
+                          ></span>
+                        </a>
+                      </li>
+                    {{/foreach}}
+                  </ul>
+                {{else}}
+                  <p class="f-search-sidebar-section__empty">
+                    {{t "Apparently there are no tags at the moment, please check again later."}}
+                  </p>
+                {{/if}}
+              {{/get}}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <section class="f-newsletter" aria-label="{{t "Newsletter form"}}">
+    <div class="f-newsletter__wrapper">
+      {{> "newsletter-form"}}
+    </div>
+  </section>
+  {{> blob-shape alt_version="true"}}
+</div>
+
+{{!-- This block loads specific scripts for the search page --}}
+{{#contentFor "scripts"}}
+  <script src="{{asset "js/vendor/search-libs.min.js"}}"></script>
+  <script>
+    window.pageSearch = (host, membersLabel, paidLabel) => {
+      return {
+        query: '',
+        posts: [],
+        loadingPosts: false,
+        errorLoadingPosts: false,
+        visibilityTypes: {
+          members: membersLabel,
+          paid: paidLabel
+        },
+        fuseOptions: {
+          shouldSort: true,
+          ignoreLocation: true,
+          findAllMatches: true,
+          includeScore: true,
+          minMatchCharLength: 2,
+          keys: ['title', 'custom_excerpt']
+        },
+        checkSearchFeature() {
+          if (typeof ghostSearchApiKey === 'undefined') {
+            console.error('Please make sure to setup the search integration in the Admin Panel first, see the documentation for more information.')
+            this.errorLoadingPosts = true
+            return
+          }
+
+          this.query = this.getParameterByName('query')
+
+          if (!this.query) {
+            this.errorLoadingPosts = true
+            return
+          }
+
+          this.performSearch()
+        },
+        performSearch() {
+          this.loadingPosts = true
+          let api = null
+
+          try {
+            api = new GhostContentAPI({
+              url: host,
+              key: ghostSearchApiKey,
+              version: 'v4'
+            })
+          } catch(error) {
+            console.log(error)
+          }
+
+          if (!api) {
+            this.loadingPosts = false
+            this.errorLoadingPosts = true
+            return
+          }
+
+          api.posts.browse({
+            limit: 'all',
+            fields: 'id, title, url, published_at, custom_excerpt, feature_image, visibility'
+          })
+            .then((posts) => {
+              this.filterPosts(posts)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        },
+        filterPosts(posts) {
+          const fuse = new Fuse(posts, this.fuseOptions)
+          const results = fuse.search(this.query)
+
+          this.posts = results.reduce((accumulator, currentResult) => {
+            if (currentResult.score <= 0.5) {
+              const item = currentResult.item
+
+              if (
+                item.feature_image &&
+                item.feature_image.indexOf('/content/images/') > -1
+              ) {
+                item.feature_image = item.feature_image.replace(
+                  '/content/images/',
+                  '/content/images/size/w750/'
+                )
+              }
+
+              accumulator.push(item)
+            }
+            return accumulator
+          }, [])
+
+          if (this.posts.length === 0) {
+            this.errorLoadingPosts = true
+          }
+
+          this.loadingPosts = false
+
+          this.$nextTick(() => {
+            const event = new Event('ajax-content-loaded', { bubbles: true })
+            this.$el.dispatchEvent(event)
+          })
+        },
+        getParameterByName(name, url) {
+          if (!url) url = window.location.href
+
+          name = name.replace(/[\[\]]/g, '\\$&')
+          const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
+          const results = regex.exec(url)
+
+          if (!results) return null
+          if (!results[2]) return ''
+
+          return decodeURIComponent(results[2].replace(/\+/g, ' '))
+        },
+        formDate(date) {
+          if (date) {
+            return new Date(date).toLocaleDateString(
+              document.documentElement.lang,
+              {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              }
+            )
+          }
+
+          return ''
+        }
+      }
+    }
+  </script>
+{{/contentFor}}

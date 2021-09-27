@@ -1,0 +1,80 @@
+{{!--
+  This template renders the latest post.
+--}}
+
+<article
+  class="f-latest-post {{post_class}} post-access-{{visibility}} {{^if feature_image}}no-image{{/if}}"
+>
+  <div class="f-latest-post__image-container">
+    <span class="f-latest-post__label for-mobile">
+      {{t "Latest"}}
+    </span>
+    {{#if feature_image}}
+      <a
+        href="{{url}}"
+        class="f-latest-post__image"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <img
+          data-src="{{img_url feature_image size="m"}}"
+          data-srcset="
+            {{img_url feature_image size='m'}} 750w,
+            {{img_url feature_image size='l'}} 1050w
+          "
+          sizes="(max-width: 48rem) 46.875rem, 65.625rem"
+          alt=""
+          class="lazy"
+          width="620"
+          height="460"
+        >
+        <span class="f-access-tag in-latest-post-image {{visibility}}">
+          {{t visibility}}
+        </span>
+      </a>
+    {{/if}}
+  </div>
+  <div class="f-latest-post__main-container">
+    <span class="f-latest-post__label for-desktop">
+      {{t "Latest"}}
+    </span>
+    <div class="f-post-card__header">
+      {{#if primary_tag}}
+        <a href="{{primary_tag.url}}" class="f-post-card__tag">
+          {{primary_tag.name}}
+          <span class="icon-chevron-right" aria-hidden="true"></span>
+        </a>
+      {{/if}}
+      {{^if feature_image}}
+        <span class="f-access-tag border in-post-card-header {{visibility}}">
+          {{t visibility}}
+        </span>
+      {{/if}}
+    </div>
+    <a href="{{url}}" class="f-latest-post__title">
+      <h2>{{title}}</h2>
+    </a>
+    {{#if custom_excerpt}}
+      <p class="f-latest-post__excerpt">{{custom_excerpt}}</p>
+    {{/if}}
+    <div class="f-post-card__metas">
+      <div class="f-post-card__author">
+        {{> avatar 
+          avatar_url=primary_author.url
+          avatar_class="in-post-card"
+          avatar_image=(img_url primary_author.profile_image size="xxs")
+          avatar_alt=(t "{label}'s profile'" label=primary_author.name)
+          has_popup="false"
+        }}
+        <span>
+          {{t "By"}} 
+          <a href="{{primary_author.url}}">{{primary_author.name}}</a>
+        </span>
+      </div>
+      <span class="f-post-card__metas-divider">&bull;</span>
+      <span class="f-post-card__date">
+        {{date published_at timeago="true"}}
+      </span>
+    </div>
+  </div>
+</article>

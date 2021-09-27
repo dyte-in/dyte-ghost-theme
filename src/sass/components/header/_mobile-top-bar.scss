@@ -1,0 +1,13 @@
+.f-mobile-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--mobile-space) 0 0.9375rem;
+  background-color: var(--background-color);
+  border-bottom: 0.0625rem solid var(--border-color);
+
+  @include respond-to('medium') {
+    display: none !important;
+  }
+}

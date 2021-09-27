@@ -1,0 +1,20 @@
+.f-article-secondary-tag {
+  display: inline-block;
+  color: var(--foreground-color);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.3125rem 0.5rem;
+  border-radius: 0.3125rem;
+  background-color: var(--mask-color);
+  @include transition(all linear 0.1s);
+
+  @include respond-to('medium') {
+    font-size: 0.875rem;
+  }
+
+  &:hover {
+    color: var(--background-color);
+    background-color: var(--foreground-color);
+  }
+}

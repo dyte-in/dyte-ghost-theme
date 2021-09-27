@@ -1,0 +1,101 @@
+{{!--
+  This template renders the membership options.
+--}}
+
+<div class="f-standard-container">
+  <main class="f-standard-wrapper" role="main">
+    <h1 class="f-title">
+      {{t "Choose your subscription"}}
+    </h1>
+    <p class="f-subtitle">
+      {{t "Unlock full access and see the entire library of members-only content & updates."}}
+    </p>
+    <div class="f-memberships-container">
+      {{^if @member}}
+        <section class="f-membership">
+          <div class="f-membership__main">
+            <header class="f-membership__header">
+              <h2 class="f-membership__type">{{t "Free"}}</h2>
+              <span class="f-membership__price">
+                {{price currency=@price.currency}}0
+              </span>
+            </header>
+            <ul class="f-membership__list">
+              <li>{{t "Full access to content for subscribers"}}</li>
+              <li>{{t "Regular updates with new content"}}</li>
+              <li>{{t "Get updates to your inbox"}}</li>
+            </ul>
+          </div>
+          <div class="f-membership__bottom">
+            <a
+              href="{{@site.url}}/signup"
+              class="f-button primary medium"
+              aria-label="{{t "Subscribe for a free account"}}"
+            >
+              {{t "Subscribe now"}}
+              <span class="icon-chevron-right" aria-hidden="true"></span>
+            </a>
+          </div>
+        </section>
+      {{/if}}
+      <section class="f-membership best-value {{#if @member}}bigger{{/if}}">
+        <div class="f-membership__main">
+          <header class="f-membership__header">
+            <h2 class="f-membership__type">{{t "Yearly"}}</h2>
+            <span class="f-membership__price">
+              {{price currency=@price.currency}}{{@price.yearly}}
+            </span>
+          </header>
+          <ul class="f-membership__list">
+            <li>{{t "Full access to all premium posts"}}</li>
+            <li>{{t "Regular updates with new content"}}</li>
+            <li>{{t "Get updates to your inbox"}}</li>
+            <li>{{t "Support independent publishing"}}</li>
+            <li>{{t "Simple, secure card payment"}}</li>
+            <li>{{t "Save money by paying annually!"}}</li>
+          </ul>
+        </div>
+        <div class="f-membership__bottom">
+          <a
+            href="javascript:void(0)"
+            class="f-button primary medium"
+            aria-label="{{t "Subscribe for a yearly account"}}"
+            data-members-plan="Yearly"
+          >
+            {{t "Subscribe now"}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+      <section class="f-membership last {{#if @member}}bigger{{/if}}">
+        <div class="f-membership__main">
+          <header class="f-membership__header">
+            <h2 class="f-membership__type">{{t "Monthly"}}</h2>
+            <span class="f-membership__price">
+              {{price currency=@price.currency}}{{@price.monthly}}
+            </span>
+          </header>
+          <ul class="f-membership__list">
+            <li>{{t "Full access to all premium posts"}}</li>
+            <li>{{t "Regular updates with new content"}}</li>
+            <li>{{t "Get updates to your inbox"}}</li>
+            <li>{{t "Support independent publishing"}}</li>
+            <li>{{t "Simple, secure card payment"}}</li>
+          </ul>
+        </div>
+        <div class="f-membership__bottom">
+          <a
+            href="javascript:void(0)"
+            class="f-button primary medium"
+            aria-label="{{t "Subscribe for a monthly account"}}"
+            data-members-plan="Monthly"
+          >
+            {{t "Subscribe now"}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+  {{> blob-shape}}
+</div>

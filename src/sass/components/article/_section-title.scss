@@ -1,0 +1,15 @@
+.f-article-section-title {
+  color: var(--accent-color);
+  line-height: 1.4;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin: 0 0 2.1875rem;
+
+  @include respond-to('medium') {
+    font-size: 1rem;
+  }
+
+  &.centered {
+    text-align: center;
+  }
+}

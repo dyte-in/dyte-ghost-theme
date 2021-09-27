@@ -1,0 +1,21 @@
+.f-menu-button {
+  width: 2.9375rem;
+  height: 1.875rem;
+  border-radius: 0.9375rem;
+  border: 0.0625rem solid var(--border-color) !important;
+  cursor: pointer;
+  @include transition(all ease 0.1s);
+
+  &:focus {
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+
+  &:hover {
+    filter: brightness(90%) saturate(110%);
+  }
+
+  span {
+    color: var(--foreground-color);
+    font-size: 1.25rem;
+  }
+}

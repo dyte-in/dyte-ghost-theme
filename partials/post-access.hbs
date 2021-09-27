@@ -1,0 +1,30 @@
+{{!--
+  This template renders a message when the user doesn't have access to the post.
+--}}
+
+<section class="f-post-access">
+  <span class="icon-lock f-post-access__icon" aria-hidden="true"></span>
+  <div class="f-post-access__content">
+    <h2 class="f-post-access__title">
+      {{t "This content is only available to subscribers"}}
+    </h2>
+    <p class="f-post-access__description">
+      {{t "Subscribe now and have access to all our stories, enjoy exclusive content and stay up to date with constant updates."}}
+    </p>
+    {{#if @member}}
+      <a href="{{@site.url}}/signup" class="f-button primary medium">
+        {{t "Subscribe now"}}
+        <span class="icon-chevron-right" aria-hidden="true"></span>
+      </a>
+    {{else}}
+      <a href="{{@site.url}}/signup" class="f-button primary medium">
+        {{t "Sign up now"}}
+        <span class="icon-chevron-right" aria-hidden="true"></span>
+      </a>
+    {{/if}}
+    <p class="f-post-access__signin">
+      {{t "Already have an account?"}}
+      <a href="{{@site.url}}/signin">{{t "Sign in"}}</a>
+    </p>
+  </div>
+</section>

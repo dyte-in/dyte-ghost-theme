@@ -1,0 +1,71 @@
+{{!--
+  This template renders a regular post card.
+--}}
+
+<article
+  class="f-post-card {{post_class}} post-access-{{visibility}} {{^if feature_image}}no-image{{/if}} {{#if @last}}last{{/if}}"
+>
+  {{#if feature_image}}
+    <a
+      href="{{url}}"
+      class="f-post-card__image"
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <img
+        data-src="{{img_url feature_image size="m"}}"
+        alt=""
+        class="lazy"
+        width="335"
+        height="200"
+      >
+      <span class="f-access-tag in-post-card-image {{visibility}}">
+        {{t visibility}}
+      </span>
+    </a>
+  {{/if}}
+  <div class="f-post-card__body">
+    <div class="f-post-card__body__top">
+      <div class="f-post-card__header">
+        {{#if primary_tag}}
+          <a href="{{primary_tag.url}}" class="f-post-card__tag">
+            {{primary_tag.name}}
+            <span class="icon-chevron-right" aria-hidden="true"></span>
+          </a>
+        {{/if}}
+        {{^if feature_image}}
+          <span class="f-access-tag border in-post-card-header {{visibility}}">
+            {{t visibility}}
+          </span>
+        {{/if}}
+      </div>
+      <a href="{{url}}" class="f-post-card__title">
+        <h2>{{title}}</h2>
+      </a>
+      {{#if custom_excerpt}}
+        <p class="f-post-card__excerpt">{{custom_excerpt}}</p>
+      {{/if}}
+    </div>
+    <div class="f-post-card__body__bottom">
+      <div class="f-post-card__metas">
+        <div class="f-post-card__author">
+          {{> avatar 
+            avatar_url=primary_author.url
+            avatar_class="in-post-card"
+            avatar_image=(img_url primary_author.profile_image size="xxs")
+            avatar_alt=(t "{label}'s profile'" label=primary_author.name)
+            has_popup="false"
+          }}
+          <span>
+            {{t "By"}} 
+            <a href="{{primary_author.url}}">{{primary_author.name}}</a>
+          </span>
+        </div>
+        <span class="f-post-card__metas-divider">&bull;</span>
+        <span class="f-post-card__date">
+          {{date published_at timeago="true"}}
+        </span>
+      </div>
+    </div>
+  </div>
+</article>

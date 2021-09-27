@@ -1,0 +1,90 @@
+{{!--
+  This template renders a collection header (title, description and image).
+--}}
+
+<section
+  class="f-collection-section {{^if collection_image}}no-image{{/if}} {{#if has_loop}}has-loop{{/if}}"
+>
+  <header
+    class="f-collection-header {{^if collection_image}}no-image{{/if}}"
+  >
+    {{#if is_author}}
+      {{> avatar 
+        avatar_url=url
+        avatar_class="in-collection-header"
+        avatar_image=(img_url profile_image size="s")
+        avatar_alt=(t "{label}'s profile'" label=name)
+        no_action="true"
+      }}
+    {{/if}}
+    <h1 class="f-title {{^if description}}no-margin{{/if}}">
+      {{title}}
+    </h1>
+    {{#if description}}
+      <p class="f-subtitle">{{description}}</p>
+    {{/if}}
+    {{#if is_author}}
+      <div class="f-author-meta">
+        {{#if location}}
+          <span class="f-author-meta__location">{{location}}</span>
+        {{/if}}
+        {{#has any="twitter, facebook, website"}}
+          <ul class="f-author-meta__list">
+            {{#if website}}
+              <li>
+                <a
+                  href="{{website}}"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{t "Website"}}"
+                >
+                  <span class="icon-home website" aria-hidden="true"></span>
+                </a>
+              </li>
+            {{/if}}
+            {{#if facebook}}
+              <li>
+                <a
+                  href="https://facebook.com/{{facebook}}"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Facebook"
+                >
+                  <span class="icon-facebook" aria-hidden="true"></span>
+                </a>
+              </li>
+            {{/if}}
+            {{#if twitter}}
+              <li>
+                <a
+                  href="https://twitter.com/{{twitter}}"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Twitter"
+                >
+                  <span class="icon-twitter" aria-hidden="true"></span>
+                </a>
+              </li>
+            {{/if}}
+          </ul>
+        {{/has}}
+      </div>
+    {{/if}}
+  </header>
+  {{#if collection_image}}
+    <div data class="f-collection-image">
+      <img
+        data-src="{{img_url collection_image size='m'}}"
+        data-srcset="
+          {{img_url collection_image size='m'}} 750w,
+          {{img_url collection_image size='l'}} 1050w
+        "
+        sizes="(max-width: 48rem) 46.875rem, 65.625rem"
+        alt=""
+        class="lazy"
+        width="620"
+        height="460"
+      >
+    </div>
+  {{/if}}
+</section>

@@ -1,0 +1,65 @@
+{{!--
+  This template is used for the author page.
+--}}
+
+{{!-- This block preloads specific assets for the author page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/taxonomy.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the author page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/taxonomy.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <div class="f-standard-container has-newsletter">
+    <main class="f-standard-wrapper" role="main">
+      {{!-- Everything inside the #author tags pulls data from the author --}}
+      {{#author}}
+        {{>
+          collection-header
+          is_author="true"
+          title=name
+          description=bio
+          has_loop="true"
+        }}
+      {{/author}}
+      <span class="f-articles-eyebrow">{{t "Articles"}}</span>
+      <div class="f-posts-container">
+        {{#foreach posts}}
+          {{#if featured}}
+            {{> featured-post}}
+          {{else}}
+            {{> post-card}}
+          {{/if}}
+        {{else}}
+          {{>
+            empty-content
+            extra_class="in-posts-loop"
+            title=(t "No articles were found")
+            description=(t "Apparently there are no articles at the moment, please check again later.")
+          }}
+        {{/foreach}}
+      </div>
+      {{!-- Links to Previous/Next posts --}}
+      {{pagination}}
+    </main>
+    {{> blob-shape}}
+  </div>
+  <section class="f-newsletter" aria-label="{{t "Newsletter form"}}">
+    <div class="f-newsletter__wrapper">
+      {{> "newsletter-form"}}
+    </div>
+  </section>
+</div>

@@ -1,0 +1,134 @@
+{{!--
+  This template renders the section to share an article.
+--}}
+
+<section
+  class="f-article-share {{#is "page"}}in-page{{/is}}"
+  x-data="share()"
+>
+  <h2 class="f-article-section-title centered">
+    {{t "Spread the word"}}
+  </h2>
+  <ul class="f-article-share__list">
+    <li>
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?u={{url absolute='true'}}"
+        class="f-article-share__button"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{t "Share on Facebook"}}"
+      >
+        <span
+          class="icon-facebook f-article-share__button__icon facebook"
+          aria-hidden="true"
+        ></span>
+        <span clasS="f-article-share__button__label">
+          {{t "Share"}}
+        </span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://twitter.com/intent/tweet?text={{encode title}}&url={{url absolute='true'}}"
+        class="f-article-share__button"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{t "Tweet"}}"
+      >
+        <span
+          class="icon-twitter f-article-share__button__icon twitter"
+          aria-hidden="true"
+        ></span>
+        <span clasS="f-article-share__button__label">
+          {{t "Tweet"}}
+        </span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute='true'}}"
+        class="f-article-share__button"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{t "Share on Linkedin"}}"
+      >
+        <span
+          class="icon-linkedin f-article-share__button__icon linkedin"
+          aria-hidden="true"
+        ></span>
+        <span clasS="f-article-share__button__label">
+          {{t "Share"}}
+        </span>
+      </a>
+    </li>
+    <li>
+      <button
+        class="f-article-share__button"
+        aria-label="{{t "Copy link"}}"
+        @click="copyLink"
+      >
+        <span
+          x-show.transition.in="!linkCopied"
+          x-cloak
+          class="icon-link f-article-share__button__icon generic"
+          aria-hidden="true"
+        ></span>
+        <span
+          x-show.transition.in="linkCopied"
+          x-cloak
+          class="icon-circle-check f-article-share__button__icon generic"
+          aria-hidden="true"
+        ></span>
+        <span clasS="f-article-share__button__label">
+          {{t "Copy"}}
+        </span>
+      </button>
+    </li>
+    <li>
+      <a
+        href="mailto:?body={{url absolute='true'}}&subject={{title}}"
+        class="f-article-share__button"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{t "Send article by email"}}"
+      >
+        <span
+          class="icon-mail f-article-share__button__icon generic"
+          aria-hidden="true"
+        ></span>
+        <span clasS="f-article-share__button__label">
+          {{t "Email"}}
+        </span>
+      </a>
+    </li>
+  </ul>
+  <input
+    x-ref="copy_input"
+    type="text"
+    value="{{url absolute='true'}}"
+    class="no-appearance invisible sr-only"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+</section>
+
+<script>
+  window.share = () => {
+    return {
+      linkCopied: false,
+      copyLink() {
+        const self = this
+        const inputLink = self.$refs.copy_input
+        inputLink.select()
+        inputLink.setSelectionRange(0, 99999)
+        document.execCommand('copy')
+        inputLink.blur()
+        self.linkCopied = true
+
+        setTimeout(() => {
+          self.linkCopied = false
+        }, 3000)
+      }
+    }
+  }
+</script>

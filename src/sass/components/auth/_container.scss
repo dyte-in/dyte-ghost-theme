@@ -1,0 +1,43 @@
+.f-auth-container {
+  display: flex;
+  min-height: calc(100vh - var(--top-bar-height));
+  padding-bottom: 4.6875rem;
+  position: relative;
+
+  @include respond-to('medium') {
+    padding: 4.6875rem 0 6.25rem;
+  }
+
+  @include respond-to('large') {
+    padding: 6.25rem 0 9.375rem;
+  }
+}
+
+.f-auth-container__wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem var(--mobile-space);
+  margin: 0 auto;
+  max-width: var(--medium-wrapper-max-width);
+  position: relative;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3.75rem;
+  }
+
+  @include respond-to('extra-large') {
+    padding: 0;
+  }
+
+  &.no-image {
+    @include respond-to('medium') {
+      justify-content: center;
+    }
+  }
+}

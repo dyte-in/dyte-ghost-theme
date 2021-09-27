@@ -1,0 +1,73 @@
+{{!--
+  This template renders an avatar.
+--}}
+
+{{#if as_button}}
+  <button
+    class="f-avatar no-appearance {{avatar_class}} {{^if avatar_image}}no-image{{/if}}"
+    aria-label="{{t "Open account menu"}}"
+    @click.stop="openAccountMenu"
+  >
+    {{#if avatar_image}}
+      <img
+        data-src="{{avatar_image}}"
+        alt=""
+        class="lazy"
+        width="32"
+        height="32"
+      >
+    {{else}}
+      <img
+        src="{{asset "images/user.svg"}}"
+        alt=""
+        width="32"
+        height="32"
+      >
+    {{/if}}
+  </button>
+{{else if no_action}}
+  <div
+    class="f-avatar {{avatar_class}} no-action {{^if avatar_image}}no-image{{/if}}"
+  >
+    {{#if avatar_image}}
+      <img
+        data-src="{{avatar_image}}"
+        alt="{{avatar_alt}}"
+        class="lazy"
+        width="32"
+        height="32"
+      >
+    {{else}}
+      <img
+        src="{{asset "images/user.svg"}}"
+        alt="{{avatar_alt}}"
+        width="32"
+        height="32"
+      >
+    {{/if}}
+  </div>
+{{else}}
+  <a
+    href="{{avatar_url}}"
+    class="f-avatar {{avatar_class}} {{^if avatar_image}}no-image{{/if}}"
+    aria-label="{{avatar_alt}}"
+    aria-haspopup="{{has_popup}}"
+  >
+    {{#if avatar_image}}
+      <img
+        data-src="{{avatar_image}}"
+        alt=""
+        class="lazy"
+        width="32"
+        height="32"
+      >
+    {{else}}
+      <img
+        src="{{asset "images/user.svg"}}"
+        alt=""
+        width="32"
+        height="32"
+      >
+    {{/if}}
+  </a>
+{{/if}}

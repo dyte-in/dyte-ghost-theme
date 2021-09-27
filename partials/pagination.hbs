@@ -1,0 +1,30 @@
+{{!--
+  This pagination template is used to navigate through newer and older articles.
+--}}
+
+<nav
+  class="f-pagination {{#if prev}}more-space{{/if}} {{#if next}}more-space{{/if}}"
+  role="navigation"
+  aria-label="{{t "Pagination"}}"
+>
+  {{#if prev}}
+    <a href="{{page_url prev}}" class="f-pagination__link">
+      <span class="f-pagination__button prev" aria-hidden="true">
+        <span class="icon-arrow-left"></span>
+      </span>
+      <span class="f-pagination__label">
+        {{t "Previous"}}
+      </span>
+    </a>
+  {{/if}}
+  {{#if next}}
+    <a href="{{page_url next}}" class="f-pagination__link">
+      <span class="f-pagination__label">
+        {{t "Next"}}
+      </span>
+      <span class="f-pagination__button next" aria-hidden="true">
+        <span class="icon-arrow-right"></span>
+      </span>
+    </a>
+  {{/if}}
+</nav>

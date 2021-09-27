@@ -1,0 +1,28 @@
+.f-standard-container {
+  position: relative;
+  padding-top: 3.125rem;
+  padding-bottom: 6.25rem;
+
+  @include respond-to('medium') {
+    padding-top: 6.25rem;
+    padding-bottom: 9.375rem;
+  }
+
+  &.in-home {
+    padding-top: 0;
+  }
+
+  &.in-collection {
+    @include respond-to('medium') {
+      padding-bottom: 4.375rem;
+    }
+  }
+
+  &.has-newsletter {
+    padding-bottom: 4.6875rem;
+
+    @include respond-to('medium') {
+      padding-bottom: 6.25rem;
+    }
+  }
+}

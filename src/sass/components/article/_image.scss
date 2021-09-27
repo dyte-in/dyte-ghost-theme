@@ -1,0 +1,21 @@
+.f-article__image {
+  margin: 0 calc(-1 * var(--mobile-space)) 3.125rem;
+
+  @include respond-to('medium') {
+    margin: 0 0 4.6875rem;
+  }
+
+  @include respond-to('large') {
+    margin: 0 -5.3125rem 4.6875rem;
+  }
+
+  @include respond-to('extra-large') {
+    margin: 0 -10.625rem 6.25rem;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+  }
+}

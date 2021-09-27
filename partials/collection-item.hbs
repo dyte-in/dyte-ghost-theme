@@ -1,0 +1,34 @@
+{{!--
+  This template renders a collection item (url, image and title).
+--}}
+
+<div class="f-collection-item {{#if @last}}last{{/if}}">
+  <a
+    href="{{url}}"
+    aria-label="{{label}}"
+    class="f-collection-item__link"
+  >
+    <div
+      class="f-collection-item__image {{^if item_image}}no-image{{/if}}"
+    >
+      {{#if item_image}}
+        <img
+          data-src="{{img_url item_image size="s"}}"
+          alt=""
+          class="lazy"
+          width="270"
+          height="270"
+        >
+      {{else}}
+        <img
+          data-src="{{default_image}}"
+          alt=""
+          class="lazy"
+          width="175"
+          height="175"
+        >
+      {{/if}}
+    </div>
+    <h2 class="f-collection-item__title">{{title}}</h2>
+  </a>
+</div>

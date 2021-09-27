@@ -1,0 +1,78 @@
+{{!--
+  This template renders the search form in the menus.
+--}}
+
+<div
+  class="{{search_container_class}}"
+  x-data="search()"
+  x-init="checkSearchFeature"
+>
+  <button
+    class="f-icon-button content-centered"
+    aria-label="{{t "Open search"}}"
+    @click.stop="open"
+  >
+    <span class="icon-search" aria-hidden="true"></span>
+  </button>
+  <div
+    class="f-search"
+    :class="{ 'opened': isOpen() }"
+    @click.away="close"
+  >
+    <form
+      x-ref="search_form"
+      data-action="{{@site.url}}/search"
+      action="{{@site.url}}/search"
+      class="f-search__form"
+      @submit.prevent
+    >
+      <label for="{{input_id}}" class="sr-only">
+        {{t "Search"}}
+      </label>
+      <input
+        id="{{input_id}}"
+        x-ref="search_input"
+        x-model="query"
+        type="search"
+        placeholder="{{t "Search in all our content"}}"
+        class="f-search__input no-appearance"
+        @keydown.enter="performSearch"
+        @keydown.escape="close"
+      >
+    </form>
+    <p class="f-search__hint">
+      {{t "Press Enter to search"}}
+    </p>
+  </div>
+</div>
+
+<script>
+  window.search = () => {
+    return {
+      show: false,
+      query: '',
+      open() {
+        const self = this
+        self.show = true
+        setTimeout(() => {
+          self.$refs.search_input.focus()
+        }, 200)
+      },
+      close() { this.show = false },
+      isOpen() { return this.show === true },
+      checkSearchFeature() {
+        if (typeof ghostSearchApiKey === 'undefined') {
+          this.$el.remove()
+        } else {
+          this.$el.classList.add('enabled')
+        }
+      },
+      performSearch() {
+        if (this.query.length > 0) {
+          const action = `${this.$refs.search_form.getAttribute('data-action')}/?query=${this.query}`
+          window.location.href = action
+        }
+      }
+    }
+  }
+</script>

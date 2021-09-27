@@ -1,0 +1,37 @@
+.f-article-tag {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  &:hover {
+    span {
+      @include transform(translateX(0.1875rem));
+    }
+  }
+
+  span {
+    display: inline-block;
+    color: inherit;
+    font-size: 0.9375rem;
+    margin-left: 0.1875rem;
+    @include transition(transform ease 0.1s);
+  }
+}
+
+.rtl {
+  .f-article-tag {
+    &:hover {
+      span {
+        @include transform(rotate(180deg) translateX(0.1875rem));
+      }
+    }
+
+    span {
+      margin-left: 0;
+      margin-right: 0.1875rem;
+      @include transform(rotate(180deg));
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.f-memberships-container {
+  padding-top: 4.6875rem;
+
+  @include respond-to('medium') {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 6.25rem;
+    margin: 0 -1.25rem;
+  }
+}

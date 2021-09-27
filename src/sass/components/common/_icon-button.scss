@@ -1,0 +1,61 @@
+.f-icon-button {
+  width: 2rem;
+  height: 2rem;
+  color: var(--foreground-color);
+  cursor: pointer;
+  border-radius: 50%;
+  border: 0.0625rem solid var(--border-color);
+  @include transition(all ease 0.1s);
+  @extend .no-appearance;
+
+  &:focus {
+    outline: 0;
+    @include bs(0 0 0 0.1875rem var(--focus-color));
+  }
+
+  &:hover:not([disabled]) {
+    filter: brightness(90%) saturate(110%);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  &.simple {
+    border-color: transparent;
+  }
+
+  &.social {
+    span {
+      font-size: 1.125rem;
+    }
+  }
+
+  &.in-desktop-top-bar {
+    margin-left: 0.9375rem;
+  }
+
+  &.in-mobile-menu {
+    margin-right: 0.9375rem;
+  }
+
+  span {
+    color: inherit;
+    font-size: 1rem;
+  }
+}
+
+.rtl {
+  .f-icon-button {
+    &.in-desktop-top-bar {
+      margin-left: 0;
+      margin-right: 0.9375rem;
+    }
+
+    &.in-mobile-menu {
+      margin-right: 0;
+      margin-left: 0.9375rem;
+    }
+  }
+}

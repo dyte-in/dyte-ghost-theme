@@ -1,0 +1,133 @@
+.f-account-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3.125rem;
+
+  @include respond-to('medium') {
+    flex-direction: row;
+    margin-bottom: 4.6875rem;
+  }
+}
+
+.f-account-user__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 9.375rem;
+  height: 9.375rem;
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.625rem;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  background-color: var(--border-color);
+
+  @include respond-to('medium') {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  &.no-image {
+    img {
+      width: 65%;
+      height: 65%;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.f-account-user__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-to('medium') {
+    display: block;
+    flex: 1;
+    padding-left: 1.875rem;
+  }
+}
+
+.f-account-user__type {
+  display: block;
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+
+  @include respond-to('medium') {
+    text-align: left;
+    margin-bottom: 0.625rem;
+  }
+}
+
+.f-account-user__name {
+  color: var(--foreground-color);
+  line-height: 1.4;
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin: 0 0 0.625rem;
+
+  @include respond-to('medium') {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 0.9375rem;
+  }
+}
+
+.f-account-user__email {
+  color: var(--secondary-text-color);
+  line-height: 1.4;
+  text-align: center;
+  font-size: 0.9375rem;
+  margin-bottom: 1.25rem;
+
+  @include respond-to('medium') {
+    text-align: left;
+    font-size: 1rem;
+    margin-bottom: 0.9375rem;
+  }
+
+  &.no-margin {
+    margin-bottom: 0 !important;
+  }
+}
+
+.f-account-user__billing {
+  color: var(--alt-text-color);
+  text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.8125rem;
+
+  @include respond-to('medium') {
+    text-align: left;
+  }
+}
+
+.rtl {
+  .f-account-user__info {
+    @include respond-to('medium') {
+      padding-left: 0;
+      padding-right: 1.875rem;
+    }
+  }
+
+  .f-account-user__type,
+  .f-account-user__name,
+  .f-account-user__email,
+  .f-account-user__billing {
+    @include respond-to('medium') {
+      text-align: right;
+    }
+  }
+}

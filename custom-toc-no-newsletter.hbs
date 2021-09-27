@@ -1,0 +1,113 @@
+{{!--
+  This template is used for posts with Table of Contents enabled without Newsletter.
+--}}
+
+{{!-- This block preloads specific assets for the post page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/post.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the post page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/post.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <main
+    class="f-standard-container js-standard-container"
+    role="main"
+  >
+    {{!-- Everything inside the #post tags pulls data from the post --}}
+    {{#post}}
+      <div class="f-standard-wrapper in-post">
+        <article class="f-article with-toc js-article">
+          {{> post-header}}
+          <div class="f-article__wrapper">
+            {{!-- Table of contents  --}}
+            {{> toc}}
+            <div
+              class="f-article-content with-toc {{^if feature_image}}no-image{{/if}} js-article-content"
+            >
+              {{#if access}}
+                {{content}}
+              {{else}}
+                {{{html}}}
+                {{> post-access}}
+              {{/if}}
+            </div>
+          </div>
+        </article>
+        {{!-- List of tags  --}}
+        {{#if tags}}
+          <div class="f-article__tags">
+            <ul class="f-article__tags__list">
+              <li>
+                <span class="f-article__tags__title">{{t "Tags"}}:</span>
+              </li>
+              {{#foreach tags}}
+                <li>
+                  <a
+                    href="{{url}}"
+                    class="f-article-secondary-tag tag-{{id}} {{slug}}"
+                  >
+                    {{name}}
+                  </a>
+                </li>
+              {{/foreach}}
+            </ul>
+          </div>
+        {{/if}}
+        {{!-- Share  --}}
+        {{> share-post}}
+        {{!-- Comments --}}
+        {{> comments}}
+        {{!-- Prev & Next articles  --}}
+        <section class="f-article__nav-articles {{^if tags}}no-tags{{/if}}">
+          {{#next_post}}
+            {{> nav-post extra_class="next" label=(t "Next article")}}
+          {{/next_post}}
+          {{#prev_post}}
+            {{> nav-post extra_class="prev" label=(t "Previous article")}}
+          {{/prev_post}}
+        </section>
+        {{!-- Related articles --}}
+        {{#if tags}}
+          {{#get
+            "posts"
+            limit="3"
+            filter="tags:{{primary_tag.slug}}+id:-{{id}}" as |related_posts|
+          }}
+            {{#if related_posts}}
+              <section class="f-article__related-articles">
+                <h2 class="f-article-section-title centered">
+                  {{t "Keep reading"}}
+                </h2>
+                <div class="f-article__related-articles__wrapper">
+                  {{#foreach related_posts}}
+                    {{> related-post}}
+                  {{/foreach}}
+                </div>
+              </section>
+            {{/if}}
+          {{/get}}
+        {{/if}}
+      </div>
+    {{/post}}
+    {{> blob-shape}}
+  </main>
+</div>
+
+{{!-- This block loads specific scripts for the post page --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/post.js"}}"></script>
+{{/contentFor}}

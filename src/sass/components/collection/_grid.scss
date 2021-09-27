@@ -1,0 +1,15 @@
+.f-collection-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -1.25rem;
+
+  @include respond-to('medium') {
+    justify-content: flex-start;
+    margin: 0 -2.5rem;
+  }
+
+  @include respond-to('large') {
+    margin: 0 -1.25rem;
+  }
+}

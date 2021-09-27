@@ -1,0 +1,189 @@
+{{!--
+  This template is used for the account page.
+--}}
+
+{{!-- This block preloads specific assets for the account page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/account.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the account page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/account.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< ../default}}
+
+<div class="f-main-container">
+  {{> header}}
+  <div class="f-standard-container">
+    {{#if @member.paid}}
+      {{!-- Logged in, paying member: Show account info --}}
+      <main
+        class="f-account-wrapper"
+        role="main"
+        x-data="{
+          labels: {
+            Monthly: '{{t "Monthly"}}',
+            Yearly: '{{t "Yearly"}}',
+            Complimentary: '{{t "Complimentary"}}',
+            active: '{{t "Active"}}',
+            trialing: '{{t "trialing"}}',
+            month: '{{t "month"}}',
+            year: '{{t "year"}}'
+          }
+        }"
+      >
+        <div class="f-account-user">
+          <div
+            class="f-account-user__avatar {{^if @member.avatar_image}}no-image{{/if}}"
+          >
+            {{#if @member.avatar_image}}
+              <img
+                data-src="{{@member.avatar_image}}"
+                alt=""
+                class="lazy"
+                width="150"
+                height="150"
+              >
+            {{else}}
+              <img
+                src="{{asset "images/user.svg"}}"
+                alt=""
+                width="150"
+                height="150"
+              >
+            {{/if}}
+          </div>
+          <div class="f-account-user__info">
+            <span class="f-account-user__type">{{t "Subscriber"}}</span>
+            {{#if @member.name}}
+              <h1 class="f-account-user__name">{{@member.name}}</h1>
+            {{/if}}
+            <p class="f-account-user__email">{{@member.email}}</p>
+            <a
+              href="javascript:"
+              class="f-account-user__billing"
+              data-members-edit-billing
+            >
+              {{t "Edit billing info"}}
+            </a>
+          </div>
+        </div>
+        <h2 class="f-account-section-label">{{t "Subscriptions"}}</h2>
+        {{#foreach @member.subscriptions}}
+          <section class="f-account-subscription {{#if @last}}last{{/if}}">
+            <header class="f-account-subscription__header">
+              <h3
+                class="f-account-subscription__type"
+                x-text="labels['{{plan.nickname}}']"
+              ></h3>
+              <span
+                class="f-account-subscription__status {{status}}"
+                x-text="labels['{{status}}']"
+              ></span>
+            </header>
+            <div class="f-account-subscription__row">
+              <div class="f-account-subscription__column">
+                <span class="f-account-subscription__field-label">
+                  {{t "Plan"}}
+                </span>
+                <p class="f-account-subscription__field-value">
+                  {{price currency=plan.currency}}<span x-text="parseFloat({{ plan.amount }} / 100).toFixed(2).replace('.', ',')"></span> / <span x-text="labels['{{plan.interval}}']"></span>
+                </p>
+              </div>
+              <div class="f-account-subscription__column">
+                <span class="f-account-subscription__field-label">
+                  {{t "Next bill date"}}
+                </span>
+                <p class="f-account-subscription__field-value">
+                  {{date current_period_end format="DD MMM YYYY"}}
+                </p>
+              </div>
+            </div>
+            <div class="f-account-subscription__row">
+              <div class="f-account-subscription__column wide-mobile">
+                <span class="f-account-subscription__field-label">
+                  {{t "Email address"}}
+                </span>
+                <p class="f-account-subscription__field-value">
+                  {{customer.email}}
+                </p>
+              </div>
+              <div class="f-account-subscription__column wide-mobile">
+                <span class="f-account-subscription__field-label">
+                  {{t "Card number"}}
+                </span>
+                <p class="f-account-subscription__field-value">
+                  **** **** **** {{default_payment_card_last4}}
+                </p>
+              </div>
+            </div>
+            {{cancel_link
+              class="f-account-user__billing"
+              errorClass="f-error-message in-account-subscription"
+              cancelLabel=(t "Cancel subscription")
+              continueLabel=(t "Continue subscription")
+            }}
+          </section>
+        {{/foreach}}
+      </main>
+    {{else if @member}}
+      {{!-- Logged in, not paying: Link to checkout --}}
+      <main class="f-account-wrapper" role="main">
+        <div class="f-account-user">
+          <div
+            class="f-account-user__avatar {{^if @member.avatar_image}}no-image{{/if}}"
+          >
+            {{#if @member.avatar_image}}
+              <img
+                src="{{@member.avatar_image}}"
+                alt=""
+                width="150"
+                height="150"
+              >
+            {{else}}
+              <img
+                src="{{asset "images/user.svg"}}"
+                alt=""
+                width="150"
+                height="150"
+              >
+            {{/if}}
+          </div>
+          <div class="f-account-user__info">
+            <span class="f-account-user__type">{{t "Member"}}</span>
+            {{#if @member.name}}
+              <h1 class="f-account-user__name">{{@member.name}}</h1>
+            {{/if}}
+            <p class="f-account-user__email no-margin">{{@member.email}}</p>
+          </div>
+        </div>
+        <h2 class="f-account-section-label">{{t "Subscriptions"}}</h2>
+        <div class="f-account-subscription last">
+          <div class="f-account-empty">
+            <h3 class="f-account-empty__title">{{t "No subscriptions"}}</h3>
+            <p class="f-account-empty__description">
+              {{t "Currently, you're not a subscriber. Unlock full access and see the entire library of members-only content & updates."}}
+            </p>
+            <a href="{{@site.url}}/signup" class="f-button primary">
+              {{t "Subscribe now"}}
+              <span class="icon-chevron-right" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </main>
+    {{else}}
+      {{!-- Not logged in: Redirect to signin --}}
+      <script>window.location = '{{@site.url}}/signin/'</script>
+    {{/if}}
+    {{> blob-shape}}
+  </div>
+</div>

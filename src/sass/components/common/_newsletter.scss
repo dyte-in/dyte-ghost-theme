@@ -1,0 +1,42 @@
+.f-newsletter {
+  position: relative;
+  padding: 4.6875rem 0 6.25rem;
+  background: var(--mask-color);
+  background: -moz-linear-gradient(top,  var(--mask-color) 0%, var(--background-color) 100%);
+  background: -webkit-linear-gradient(top,  var(--mask-color) 0%,var(--background-color) 100%);
+  background: linear-gradient(to bottom,  var(--mask-color) 0%,var(--background-color) 100%);
+  z-index: 2;
+  
+  @include respond-to('medium') {
+    padding: 6.25rem 0 9.375rem;
+  }
+}
+
+.f-newsletter__wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--mobile-space);
+  max-width: 42.5rem;
+  margin: 0 auto;
+
+  @include respond-to('medium') {
+    padding: 0;
+  }
+
+  .f-auth-form {
+    text-align: center !important;
+    padding: 0 !important;
+  }
+
+  .f-auth-form__title,
+  .f-auth-form__subtitle {
+    @include respond-to('medium') {
+      margin-left: -3.75rem;
+      margin-right: -3.75rem;
+    }
+  }
+
+  .f-auth-form__success {
+    max-width: 22.5rem !important;
+  }
+}

@@ -1,0 +1,31 @@
+.f-collection-section {
+  position: relative;
+  margin-bottom: 4.6875rem;
+
+  @include respond-to('medium') {
+    margin-left: -0.625rem;
+    margin-right: -0.625rem;
+    margin-bottom: 6.25rem;
+  }
+
+  @include respond-to('large') {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 9.375rem;
+  }
+
+  &.has-loop {
+    margin-bottom: 3.125rem;
+
+    @include respond-to('medium') {
+      margin-bottom: 4.6875rem;
+    }
+
+    @include respond-to('large') {
+      margin-bottom: 6.25rem;
+    }
+  }
+}

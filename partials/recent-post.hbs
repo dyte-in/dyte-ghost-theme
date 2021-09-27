@@ -1,0 +1,30 @@
+{{!--
+  This template renders a recent article.
+--}}
+
+<article
+  class="f-recent-article {{post_class}} post-access-{{visibility}} {{#if @last}}last{{/if}}"
+>
+  <a href="{{url}}" class="f-recent-article__link">
+    <div class="f-recent-article__info">
+      <span class="f-access-tag border in-recent-article {{visibility}}">
+        {{t visibility}}
+      </span>
+      <h4 class="f-recent-article__title">{{title}}</h4>
+      <span class="f-recent-article__date">
+        {{date published_at format=(t "MMMM DD, YYYY")}}
+      </span>
+    </div>
+    {{#if feature_image}}
+      <div class="f-recent-article__image">
+        <img
+          data-src="{{img_url feature_image size="xs"}}"
+          alt=""
+          class="lazy"
+          width="75"
+          height="75"
+        >
+      </div>
+    {{/if}}
+  </a>
+</article>
