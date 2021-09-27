@@ -8,15 +8,15 @@
   class="f-auth-form {{^if feature_image}}no-image{{/if}}"
 >
   <h1 class="f-auth-form__title">
-    {{t "Subscribe to our newsletter"}}
+    {{t "Want to build on Dyte?"}}
   </h1>
   <p class="f-auth-form__subtitle">
-    {{t "Stay updated with {blogtitle} by signing up for our newsletter." blogtitle=@blog.title}}
+    {{t "Get 10,000 free minutes every month!" blogtitle=@blog.title}}
   </p>
   <div
     class="f-auth-form__fieldset {{^if feature_image}}no-image{{/if}}"
   >
-    <label for="newsletter-input" class="sr-only">
+    {{!-- <label for="newsletter-input" class="sr-only">
       {{t "Your email address"}}
     </label>
     <input
@@ -26,15 +26,17 @@
       type="email"
       required
       placeholder="{{t "Your email address"}}"
-    />
-    <button
-      id="newsletter-button"
-      class="f-button primary medium in-auth-form"
-      type="submit"
-    >
-      {{t "Join now"}}
-      <span class="icon-chevron-right" aria-hidden="true"></span>
-    </button>
+    /> --}}
+    <a href="https://dev.dyte.in/signup" target="blank">
+      <button
+        id="newsletter-button"
+        class="f-button primary medium in-auth-form"
+        type="submit"
+      >
+        {{t "Sign up & get started"}}
+        <span class="icon-chevron-right" aria-hidden="true"></span>
+      </button>
+    </a>
   </div>
   <p class="f-auth-form__success">
     {{t "🎉 Awesome! Now check your inbox and click the link to confirm your subscription."}}

@@ -4,6 +4,15 @@
 
 <div class="f-mobile-top-bar" x-data="mobileMenu()">
   {{> logo logo_class="in-mobile-top-bar"}}
+
+   <a
+      href="https://dev.dyte.in/signup"
+      class="f-button primary in-mobile-menu"
+      target="blank"
+    >  
+      {{t "Get Started"}}
+      <span class="icon-chevron-right" aria-hidden="true"></span>
+    </a>
   <button
     class="f-menu-button no-appearance content-centered"
     aria-label="{{t "Open menu"}}"
@@ -112,19 +121,19 @@
               </div>
             {{else}}
               <a
-                href="{{@site.url}}/signup"
+                href="https://dev.dyte.in/signup"
                 class="f-button primary in-mobile-menu"
               >
-                {{t "Sign up"}}
+                {{t "Get Started"}}
                 <span class="icon-chevron-right" aria-hidden="true"></span>
               </a>
-              <a
+              {{!-- <a
                 href="{{@site.url}}/signin"
                 class="f-button in-mobile-menu"
               >
                 {{t "Sign in"}}
                 <span class="icon-chevron-right" aria-hidden="true"></span>
-              </a>
+              </a> --}}
             {{/if}}
           </div>
           <div class="f-mobile-menu__footer-side">
