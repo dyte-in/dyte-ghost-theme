@@ -17,7 +17,7 @@
             <header class="f-membership__header">
               <h2 class="f-membership__type">{{t "Free"}}</h2>
               <span class="f-membership__price">
-                {{price currency=@price.currency}}0
+                {{!-- {{price currency=@price.currency}}0 --}}
               </span>
             </header>
             <ul class="f-membership__list">
@@ -43,7 +43,7 @@
           <header class="f-membership__header">
             <h2 class="f-membership__type">{{t "Yearly"}}</h2>
             <span class="f-membership__price">
-              {{price currency=@price.currency}}{{@price.yearly}}
+              {{!-- {{price currency=@price.currency}}{{@price.yearly}} --}}
             </span>
           </header>
           <ul class="f-membership__list">
@@ -72,7 +72,7 @@
           <header class="f-membership__header">
             <h2 class="f-membership__type">{{t "Monthly"}}</h2>
             <span class="f-membership__price">
-              {{price currency=@price.currency}}{{@price.monthly}}
+              {{!-- {{price currency=@price.currency}}{{@price.monthly}} --}}
             </span>
           </header>
           <ul class="f-membership__list">
